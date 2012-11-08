@@ -1,0 +1,9 @@
+#Ignored file pattern for Texas New School Web App
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
