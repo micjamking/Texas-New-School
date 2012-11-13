@@ -89,9 +89,12 @@ Express.views.PhotoView = Backbone.View.extend({
 		
 		span 			= document.createElement("span");
 		span.innerHTML 	= this.model.get('likes').count;
-		span.setAttribute('class', 'likes foundicon-heart');
+		span.setAttribute('class', 'likes');
 		
-		this.$el.html(img).append(span).hide();
+		i = document.createElement('i');
+		i.setAttribute('class', 'foundicon-heart');
+		
+		this.$el.html(img).append(i).append(span).hide();
 		
 		return this;
 	}
@@ -133,12 +136,13 @@ Express.views.PhotosView = Backbone.View.extend({
 	},
 		  
 	afterRender: function() {
+		console.log('PhotosView completed');
 		setTimeout(function () {
-			$('.loading').fadeOut();
-			$('.photo').fadeIn();
-			var wall = new Masonry( document.getElementById('photo_container'), {  isFitWidth: true,  gutterWidth: 3 });
-		}, 600);
-		console.log('PhotosView completed'); 
+			$('.loading').fadeOut(600, function(){
+				$('.photo').fadeIn();
+				var wall = new Masonry( document.getElementById('photo_container'), {  isFitWidth: true,  gutterWidth: 4 });
+			});
+		}, 1000);
 	} 
 });
 
@@ -293,14 +297,17 @@ jQuery(function($) {
 		var link 	= $(this).find('img').attr('data-src-anchor');
 		var text	= $(this).find('img').attr('data-src-caption');
 		
-		$("#photoModal").find('img').attr('src', src);
-		$("#photoModal").find('.details a').attr('href', link).text(text);
-		
 		$("#photoModal").reveal({
 			animation: 'fade',
+			open: function(){		
+				$("#photoModal").find('img').attr('src', src);
+				$("#photoModal").find('.details a').attr('href', link).text(text);
+				$('#container').css('-webkit-filter', 'blur(2px)');
+			},
 			closed: function(){ 
 				$("#photoModal").find('img').attr('src', '');
 				$("#photoModal").find('.details a').attr('href', '').text('');
+				$('#container').css('-webkit-filter', 'none');
 			}
 		});
 	});

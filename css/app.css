@@ -104,7 +104,7 @@ body{
 	margin: 0 auto;
 }
 
-h1 a{ 
+.top-bar ul > .name > h1 > a{ 
 	color: black; 
 	font-size: 24px; 
 	font-weight: lighter; 
@@ -117,7 +117,8 @@ h1 a{
 	width: 100%; 
 	height: 100%; 
 	padding: 10px;
-	position: relative; 
+	position: relative;
+	-webkit-transition: -webkit-filter 0.5s ease-in-out;
 }
 
 nav a { text-decoration: none; }
@@ -128,15 +129,18 @@ nav a { text-decoration: none; }
 
 .photo {
 	float: left;
+	cursor: pointer;
 	margin: 6px 3px;
 	border-radius: 2px;
 	border: 5px solid white;
 	box-shadow: 0px 0px 2px rgba(0,0,0,0.25);
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: all 0.25s ease;
+	transition: all 0.25s ease;
 }
 
 .photo img {
 	position: relative;
-	cursor: pointer;
 	display: block;
 	width: 100% !important;
 	min-width: 150px;
@@ -145,11 +149,10 @@ nav a { text-decoration: none; }
 	-moz-transition: all 0.25s ease;
 	transition: all 0.25s ease;
 	opacity: 1;
-	z-index: 5;
+	z-index: 0;
 }
 
-.photo img:hover{
-	opacity: 0.15;
+.photo:hover > img{
 	-webkit-filter: blur(1px);
 	/*border-radius: 0px;
 	box-shadow: 0px 0px 5px rgba(0,0,0,0.25);
@@ -159,25 +162,33 @@ nav a { text-decoration: none; }
 	z-index: 5;*/
 }
 
-.likes{
+.photo:hover > .likes, .photo:hover > .foundicon-heart{
+	opacity: 1;
+}
+
+.likes, .foundicon-heart{
+	opacity: 0;
 	display: block;
 	position: absolute;
 	height: 100%;
 	width: 100%;
 	top: 0;
 	left: 0;
-	background: rgba(0,0,0,0.75);
+	background: rgba(0,0,0,0.5);
 	box-shadow: inset 0px 0px 20px rgba(0,0,0,0.5);
-	z-index: 0;
+	z-index: 2;
 	color: rgba(0,0,0,0.75);
 	text-align: center;
 	font-weight: bold;
 	font-size: 48px;
 	padding: 27px;
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: all 0.25s ease;
+	transition: all 0.25s ease;
 }
 
-.likes:before{
-	color: rgba(255, 255, 255, 0.25);
+.foundicon-heart:before{
+	color: rgba(255, 255, 255, 0.5);
 	font-size: 120px;
 	text-align: center;
 	position: absolute;
@@ -192,11 +203,16 @@ nav a { text-decoration: none; }
 ----------------------------------------- */
 .reveal-modal {
 	border-radius: 5px;
-	padding: 10px;
+	padding: 0px;
+	z-index: 100;
 }
 
 .reveal-modal-bg {
 	background: rgba(0, 0, 0, 0.75);
+}
+
+.reveal-modal > img {
+	padding: 10px;
 }
 
 #photo_container,
@@ -225,10 +241,24 @@ nav a { text-decoration: none; }
 }
 
 .details{
+	background: #222;
 	border-top: 1px solid rgba(0,0,0,0.15);
-	margin: 5px 0 10px;
-	padding: 10px 0 0;
+	margin: 0px;
+	padding: 15px;
 	font-size: 12px;
+	border-radius: 3px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+}
+
+@media only screen and (max-width: 767px){
+	.reveal-modal, 
+	.reveal-modal.small, 
+	.reveal-modal.medium, 
+	.reveal-modal.large, 
+	.reveal-modal.xlarge {
+		padding: 0px;
+	}
 }
 
 /* -----------------------------------------
