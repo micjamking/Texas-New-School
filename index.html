@@ -3,33 +3,58 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	
+	<link rel="stylesheet" href="css/libs/foundation.min.css">
+	<link rel="stylesheet" href="css/app.css">
 
-	<link rel="stylesheet" href="css/style.css">
+	<!-- IE Fix for HTML5 Tags -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-	<title>Backbone Boilerplate</title>
+	<title>#texasnewschool</title>
 </head>
 
 <body>
-	<div id="container">
-		<h1>#texasnewschool</h1>
-		
-		<nav>
-			<a href="#timsinknart">Tim</a> &bull;
-			<a href="#thomaspage">TJ</a> &bull;
-			<a href="#jeremymiller">Jeremy</a> &bull;
-			<a href="#ronstafari">Ron</a>
+	<header class="fixed contain-to-grid">
+		<nav class="top-bar">
+			<ul>
+				<li class="name"><h1><a href="#texasnewschool">#texasnewschool</a></h1></li>
+				<li class="toggle-topbar"><a href="#"></a></li>
+			</ul>
+			<section>
+				<ul class="right">
+					<li><a href="#timsinknart">Tim</a></li>
+					<li class="divider"></li>
+					<li><a href="#thomaspage">TJ</a></li>
+					<li class="divider"></li>
+					<li><a href="#jeremymiller">Jeremy</a></li>
+					<li class="divider"></li>
+					<li><a href="#ronstafari">Ron</a></li>
+				</ul>
+			</section>
 		</nav>
+	</header>
+	
+	<div id="container">
 		<div id="main"></div>
+	</div>
+	
+	<div id="photoModal" class="reveal-modal medium">
+		<img src="" alt="" />
+		<div class="row details"><a href="" target="_blank"></a></div>
 	</div>
 
 	<!-- Libraries -->
 	<script src="js/libs/jquery-1.7.1.js"></script>
 	<script src="js/libs/underscore.js"></script>
 	<script src="js/libs/backbone.js"></script>
-
+	<script src="js/libs/foundation.min.js"></script>
+	<script src="js/libs/masonry.min.js"></script>
+	
 	<!-- Application -->
-	<script src="js/application.js"></script>
+	<script src="js/app.js"></script>
 
 	<script type="template/underscore" id="photo_container">
 		<h1>This is the container</h1>
