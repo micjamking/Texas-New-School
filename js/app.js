@@ -109,19 +109,13 @@ Express.views.PhotosView = Backbone.View.extend({
 		this.collection.fetch({
 			dataType : 'jsonp',
 			success: function(collection, response) { view.render(); },
-			error: function(collection, response) {},
-			xhr: function() {
-                var xhr = $.ajaxSettings.xhr();
-                xhr.onprogress = self.handleProgress;
-                return xhr;
-            }
+			error: function(collection, response) {}
 		});
 		
-		_.bindAll(this, 'progress', 'render', 'afterRender'); 
+		_.bindAll(this, 'render', 'afterRender'); 
 		var _this = this; 
 		this.render = _.wrap(this.render, function(render) { 
 			render(); 
-			_this.progress();
 			_this.afterRender(); 
 			return _this; 
 		});
@@ -137,17 +131,10 @@ Express.views.PhotosView = Backbone.View.extend({
 		});
 		return this;
 	},
-
-    progress: function(evt){
-        var percentComplete = 0;
-        if (evt.lengthComputable) {  
-            percentComplete = evt.loaded / evt.total;
-        }
-        console.log(Math.round(percentComplete * 100)+"%");
-    },
 		  
 	afterRender: function() {
 		setTimeout(function () {
+			$('.loading').fadeOut();
 			$('.photo').fadeIn();
 			var wall = new Masonry( document.getElementById('photo_container'), {  isFitWidth: true,  gutterWidth: 3 });
 		}, 600);
@@ -210,6 +197,7 @@ jQuery(function($) {
 
 		index: function(hash) {
 			if (Express.storage.getAccessToken()) {
+				$('.loading').fadeIn();
 				var photos = new Express.collections.Photos();
 				photos.url = 'https://api.instagram.com/v1/tags/texasnewschool/media/recent?access_token=' + Express.storage.getAccessToken() + '&count=-1';
 				var view = new Express.views.PhotosView({ collection: photos });
@@ -226,6 +214,7 @@ jQuery(function($) {
 		},
 
 		texasnewschool: function() {
+			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
 			photos.url = 'https://api.instagram.com/v1/tags/texasnewschool/media/recent?access_token=' + Express.storage.getAccessToken() + '&count=-1';
 			var view = new Express.views.PhotosView({ collection: photos });
@@ -233,6 +222,7 @@ jQuery(function($) {
 		},
 
 		timsinknart: function() {
+			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
 			photos.url = 'https://api.instagram.com/v1/users/' + $timsinknart + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=-1';
 			var view = new Express.views.PhotosView({ collection: photos });
@@ -240,6 +230,7 @@ jQuery(function($) {
 		},
 
 		thomaspage: function() {
+			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
 			photos.url = 'https://api.instagram.com/v1/users/' + $thomaspage + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=-1';
 			var view = new Express.views.PhotosView({ collection: photos });
@@ -247,6 +238,7 @@ jQuery(function($) {
 		},
 
 		jeremymiller: function() {
+			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
 			photos.url = 'https://api.instagram.com/v1/users/' + $jeremymiller + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=-1';
 			var view = new Express.views.PhotosView({ collection: photos });
@@ -254,6 +246,7 @@ jQuery(function($) {
 		},
 
 		ronstafari: function() {
+			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
 			photos.url = 'https://api.instagram.com/v1/users/' + $ronstafari + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=-1';
 			var view = new Express.views.PhotosView({ collection: photos });
@@ -312,4 +305,7 @@ jQuery(function($) {
 		});
 	});
 	
+	/* Preloader */
+	$('#container').append('<i class="loading"></i>');
+
 });

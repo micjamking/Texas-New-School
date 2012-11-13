@@ -87,12 +87,14 @@
 .foundicon-search:before 	{ content: "\f02e"; }
 
 html {
-  background: #E9E9E9;
-  font-family: sans-serif;
+	background: #E9E9E9;
+	font-family: sans-serif;
+	height: 100%;
 }
 
 body{
 	background: #E9E9E9;
+	height: 100%;
 }
 
 .row {
@@ -111,7 +113,12 @@ h1 a{
 	text-shadow: 1px 1px rgba(255,255,255,0.1);
 }
 
-#container { width: 100%; padding: 10px; }
+#container { 
+	width: 100%; 
+	height: 100%; 
+	padding: 10px;
+	position: relative; 
+}
 
 nav a { text-decoration: none; }
 
@@ -227,3 +234,35 @@ nav a { text-decoration: none; }
 /* -----------------------------------------
    Page Name 2
 ----------------------------------------- */
+.loading {
+	font-size: 100%;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -20px 0 0 -20px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-image: linear-gradient(bottom, #FFFFFF 50%, #E9E9E9 50%);
+	background-image: -o-linear-gradient(bottom, #FFFFFF 50%, #E9E9E9 50%);
+	background-image: -moz-linear-gradient(bottom, #FFFFFF 50%, #E9E9E9 50%);
+	background-image: -webkit-linear-gradient(bottom, #FFFFFF 50%, #E9E9E9 50%);
+	background-image: -ms-linear-gradient(bottom, #FFFFFF 50%, #E9E9E9 50%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.5, #FFFFFF),
+		color-stop(0.5, #E9E9E9)
+	);
+	-webkit-animation: load 1s infinite linear;
+	-moz-animation: load 1s infinite linear;
+	animation: load 1s infinite linear;
+}
+
+@-webkit-keyframes load { 100% { -webkit-transform: rotate(360deg); } }
+@-moz-keyframes load { 100% { -moz-transform: rotate(360deg); } }
+@keyframes load { 100% { transform: rotate(360deg); } }
