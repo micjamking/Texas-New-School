@@ -83,7 +83,8 @@ Express.views.PhotoView = Backbone.View.extend({
 		console.log('PhotoView rendering');
 		img 	= new Image();
 		img.src = this.model.get('images').thumbnail.url;
-		img.setAttribute("data-src-large", 	this.model.get('images').standard_resolution.url);		
+		img.setAttribute("data-src-large", 	this.model.get('images').standard_resolution.url);
+		img.setAttribute("data-src-medium", this.model.get('images').low_resolution.url);		
 		img.setAttribute("data-src-anchor", this.model.get('link'));
 		if (this.model.get('caption') !== null){ img.setAttribute("data-src-caption",this.model.get('caption').text); }
 		
@@ -137,10 +138,13 @@ Express.views.PhotosView = Backbone.View.extend({
 		  
 	afterRender: function() {
 		console.log('PhotosView completed');
+		mediaQuery();
 		setTimeout(function () {
 			$('.loading').fadeOut(600, function(){
 				$('.photo').fadeIn();
+				if($(window).width() > 768){
 				var wall = new Masonry( document.getElementById('photo_container'), {  isFitWidth: true,  gutterWidth: 4 });
+				}
 			});
 		}, 1000);
 	} 
@@ -176,6 +180,22 @@ Express.views.ErrorView = Backbone.View.extend({
 		$('#main').html("<p>" + error + "</p>");
 	}
 });
+
+function mediaQuery(){
+	var browserWidth = $(window).width();
+
+	$('.photo > img').each(function(){
+		var $mobile = $(this).attr('data-src-medium');
+		var $desktop = $(this).attr('src');
+		if ( browserWidth < 768 ){
+			$(this).attr('src', $mobile);
+			console.log($mobile);
+		} else {
+			$(this).attr('src', $desktop);
+			$('body').addClass('desktop');
+		}
+	});
+}
 
 
 jQuery(function($) {
@@ -290,7 +310,7 @@ jQuery(function($) {
 	});
 	
 	/* Foundation modal window */
-	$(document).on("click", ".photo", function(){
+	$(document).on("click", ".desktop .photo", function(){
 		var src 	= $(this).find('img').attr('data-src-large');
 		var link 	= $(this).find('img').attr('data-src-anchor');
 		var text	= $(this).find('img').attr('data-src-caption');

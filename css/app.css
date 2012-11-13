@@ -259,6 +259,17 @@ nav a { text-decoration: none; }
 	.reveal-modal.xlarge {
 		padding: 0px;
 	}
+	
+	.photo:hover > img{ -webkit-filter: none; }
+	 
+	.photo:hover > .likes, 
+	.photo:hover > .foundicon-heart{
+		opacity: 0;
+	}
+	
+	.photo{
+		cursor: default;
+	}
 }
 
 /* -----------------------------------------
