@@ -283,13 +283,11 @@ jQuery(function($) {
 		$.fn.placeholder                ? $('input, textarea').placeholder() : null;
 	});
 
-	if (Modernizr.touch && !window.location.hash) {
-		$(window).load(function () {
-			setTimeout(function () {
-				window.scrollTo(0, 1);
-			}, 0);
-		});
-	}
+	$(window).load(function () {
+		setTimeout(function () {
+			window.scrollTo(0, 1);
+		}, 0);
+	});
 	
 	/* Foundation modal window */
 	$(document).on("click", ".photo", function(){

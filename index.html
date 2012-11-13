@@ -50,6 +50,15 @@
 		<img src="" alt="" />
 		<div class="row details"><a href="" target="_blank"></a></div>
 	</div>
+	
+	<script type="template/underscore" id="photo_container">
+		<h1>This is the container</h1>
+	</script>
+
+	<script type="template/underscore" id="authentication">
+		<p>Instagram uses OAuth to allow this app to access your photos</p>
+		<a href="{{ authorizationUrl }}" id="authorize">Authorize my account</a>
+	</script>
 
 	<!-- Libraries -->
 	<script src="js/libs/jquery-1.7.1.js"></script>
@@ -60,14 +69,5 @@
 	
 	<!-- Application -->
 	<script src="js/app.js"></script>
-
-	<script type="template/underscore" id="photo_container">
-		<h1>This is the container</h1>
-	</script>
-
-	<script type="template/underscore" id="authentication">
-		<p>Instagram uses OAuth to allow this app to access your photos</p>
-		<a href="{{ authorizationUrl }}" id="authorize">Authorize my account</a>
-	</script>
 </body>
 </html>
