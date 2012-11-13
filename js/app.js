@@ -199,6 +199,51 @@ function mediaQuery(){
 
 
 jQuery(function($) {
+	
+	var $doc = $(document),
+		Modernizr = window.Modernizr;
+
+	$(document).ready(function() {
+		//$.fn.foundationAlerts           ? $doc.foundationAlerts() : null;
+		//$.fn.foundationButtons          ? $doc.foundationButtons() : null;
+		//$.fn.foundationAccordion        ? $doc.foundationAccordion() : null;
+		$.fn.foundationNavigation       ? $doc.foundationNavigation() : null;
+		$.fn.foundationTopBar           ? $doc.foundationTopBar() : null;
+		//$.fn.foundationCustomForms      ? $doc.foundationCustomForms() : null;
+		//$.fn.foundationMediaQueryViewer ? $doc.foundationMediaQueryViewer() : null;
+		//$.fn.foundationTabs             ? $doc.foundationTabs({callback : $.foundation.customForms.appendCustomMarkup}) : null;
+		//$.fn.foundationTooltips         ? $doc.foundationTooltips() : null;
+		//$.fn.foundationMagellan         ? $doc.foundationMagellan() : null;
+		//$.fn.foundationClearing         ? $doc.foundationClearing() : null;
+		//$.fn.placeholder                ? $('input, textarea').placeholder() : null;
+	});
+
+	/* Hide Address bar on iOS */
+	$(window).load(function () { setTimeout(function () { window.scrollTo(0, 1); }, 0); });
+	
+	/* Preloader */
+	$('#container').append('<i class="loading"></i>');
+	
+	/* Foundation modal window */
+	$(document).on("click", ".desktop .photo", function(){
+		var src 	= $(this).find('img').attr('data-src-large');
+		var link 	= $(this).find('img').attr('data-src-anchor');
+		var text	= $(this).find('img').attr('data-src-caption');
+		
+		$("#photoModal").reveal({
+			animation: 'fade',
+			open: function(){		
+				$("#photoModal").find('img').attr('src', src);
+				$("#photoModal").find('.details a').attr('href', link).text(text);
+				$('#container').css('-webkit-filter', 'blur(2px)');
+			},
+			closed: function(){ 
+				$("#photoModal").find('img').attr('src', '');
+				$("#photoModal").find('.details a').attr('href', '').text('');
+				$('#container').css('-webkit-filter', 'none');
+			}
+		});
+	});
 
 	var $timsinknart	= 52638890,
 		$thomaspage		= 21818000,
@@ -208,10 +253,10 @@ jQuery(function($) {
 	var Router = Backbone.Router.extend({
 		routes: {
 			"": 				"index",
-			"timsinknart":  	"timsinknart",
+			"timstafford":  	"timsinknart",
 			"thomaspage": 		"thomaspage",
 			"jeremymiller":   	"jeremymiller",
-			"ronstafari": 		"ronstafari",
+			"rongivens": 		"ronstafari",
 			"texasnewschool": 	"texasnewschool"
 		},
 
@@ -281,56 +326,6 @@ jQuery(function($) {
 
 	router = new Router();
 
-	if (!Backbone.history.start()) {
-		$('body').html('404!');
-	}
-  
-    var $doc = $(document),
-      	Modernizr = window.Modernizr;
-
-	$(document).ready(function() {
-		$.fn.foundationAlerts           ? $doc.foundationAlerts() : null;
-		$.fn.foundationButtons          ? $doc.foundationButtons() : null;
-		$.fn.foundationAccordion        ? $doc.foundationAccordion() : null;
-		$.fn.foundationNavigation       ? $doc.foundationNavigation() : null;
-		$.fn.foundationTopBar           ? $doc.foundationTopBar() : null;
-		$.fn.foundationCustomForms      ? $doc.foundationCustomForms() : null;
-		$.fn.foundationMediaQueryViewer ? $doc.foundationMediaQueryViewer() : null;
-		$.fn.foundationTabs             ? $doc.foundationTabs({callback : $.foundation.customForms.appendCustomMarkup}) : null;
-		$.fn.foundationTooltips         ? $doc.foundationTooltips() : null;
-		$.fn.foundationMagellan         ? $doc.foundationMagellan() : null;
-		$.fn.foundationClearing         ? $doc.foundationClearing() : null;
-		$.fn.placeholder                ? $('input, textarea').placeholder() : null;
-	});
-
-	$(window).load(function () {
-		setTimeout(function () {
-			window.scrollTo(0, 1);
-		}, 0);
-	});
-	
-	/* Foundation modal window */
-	$(document).on("click", ".desktop .photo", function(){
-		var src 	= $(this).find('img').attr('data-src-large');
-		var link 	= $(this).find('img').attr('data-src-anchor');
-		var text	= $(this).find('img').attr('data-src-caption');
-		
-		$("#photoModal").reveal({
-			animation: 'fade',
-			open: function(){		
-				$("#photoModal").find('img').attr('src', src);
-				$("#photoModal").find('.details a').attr('href', link).text(text);
-				$('#container').css('-webkit-filter', 'blur(2px)');
-			},
-			closed: function(){ 
-				$("#photoModal").find('img').attr('src', '');
-				$("#photoModal").find('.details a').attr('href', '').text('');
-				$('#container').css('-webkit-filter', 'none');
-			}
-		});
-	});
-	
-	/* Preloader */
-	$('#container').append('<i class="loading"></i>');
+	if (!Backbone.history.start()) { $('body').html('404!'); }
 
 });
