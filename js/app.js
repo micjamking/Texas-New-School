@@ -1,5 +1,8 @@
-_.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
+/* 
+ * Author: Mike King (@micjamking)
+ */
 
+_.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
 
 Express = {
 	models: {},
