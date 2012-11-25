@@ -1,3 +1,7 @@
+/* 
+ * Author: Mike King (@micjamking)
+ */
+
 _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
 
 
@@ -37,8 +41,7 @@ Express.config = {
 
 Express.storage = {
 	getAccessToken: function() {
-		return Express.config.accessToken; 
-		// Using personal AccessToken; should use public access but this is the recommended solution (http://goo.gl/2ig2e)
+		return Express.config.accessToken;  // http://goo.gl/2ig2e
 	},
 
 	setAccessToken: function(token) {
@@ -193,12 +196,15 @@ Express.views.ErrorView = Backbone.View.extend({
 	}
 });
 
+
 function mediaQuery(){
+
 	var browserWidth = $(window).width();
 
 	$('.photo > img').each(function(){
-		var $mobile = $(this).attr('data-src-medium');
-		var $tablet = $(this).attr('data-src-large');
+
+		var $mobile  = $(this).attr('data-src-medium');
+		var $tablet  = $(this).attr('data-src-large');
 		var $desktop = $(this).attr('src');
 
 		if ( browserWidth < 768 && browserWidth > 479 ){
@@ -217,8 +223,8 @@ function mediaQuery(){
 
 jQuery(function($) {
 	
-	var $doc = $(document),
-		Modernizr = window.Modernizr;
+	/* Foundation & Modernizr  */
+	var $doc = $(document), Modernizr = window.Modernizr;
 
 	$(document).ready(function() {
 		$.fn.foundationNavigation	? $doc.foundationNavigation() : null;
@@ -257,17 +263,20 @@ jQuery(function($) {
 			}
 		});
 	});
-
+	
+	/* Navigation */
 	$(document).on('click', '.dropdown li, .name a', function(){
 		$('.dropdown li').removeClass('selected');
 		$(this).addClass('selected');
 	});
 
+	/* Instagram User ID's */
 	var $timsinknart	= 52638890,
 		$thomaspage		= 21818000,
 		$jeremymiller  	= 15994110,
 		$ronstafari		= 20038052;
 
+	/* Backbone: Routers (Navigation) */
 	var Router = Backbone.Router.extend({
 		routes: {
 			"": 				"index",
