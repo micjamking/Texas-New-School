@@ -53,7 +53,7 @@ Express.storage = {
 
 Express.models.Photo = Backbone.Model.extend({
 	initialize: function() {
-		console.log('Photo initialized');
+		//console.log('Photo initialized');
 	}
 });
 
@@ -76,11 +76,11 @@ Express.views.PhotoView = Backbone.View.extend({
 	className: "photo",
 
 	initialize: function() {
-		console.log('PhotoView initialized');
+		//console.log('PhotoView initialized');
 	},
 
 	render: function() {
-		console.log('PhotoView rendering');
+		//console.log('PhotoView rendering');
 		img 	= new Image();
 		img.src = this.model.get('images').thumbnail.url;
 		img.setAttribute("data-src-large", 	this.model.get('images').standard_resolution.url);
@@ -111,7 +111,7 @@ Express.views.PhotosView = Backbone.View.extend({
 	template: "#photo_container",
 
 	initialize: function() {
-		console.log('PhotosView initialized');
+		//console.log('PhotosView initialized');
 		var view = this;
 		this.collection.fetch({
 			dataType : 'jsonp',
@@ -129,7 +129,7 @@ Express.views.PhotosView = Backbone.View.extend({
 	},
 
 	render: function() {
-		console.log('PhotosView rendering');
+		//console.log('PhotosView rendering');
 		$(this.el).append(_.template($(this.template).html(), {}));
 		view = this;
 		_.each(this.collection.models, function(photo) {
@@ -140,7 +140,7 @@ Express.views.PhotosView = Backbone.View.extend({
 	},
 		  
 	afterRender: function() {
-		console.log('PhotosView completed');
+		//console.log('PhotosView completed');
 		mediaQuery();
 		setTimeout(function () {
 			$('.loading').fadeOut(600, function(){
@@ -168,7 +168,7 @@ Express.views.AuthorizeView = Backbone.View.extend({
 	template: "#authentication",
 
 	initialize: function() {
-		console.log("Initialised AuthorizeView");
+		//console.log("Initialised AuthorizeView");
 	},
 
 	render: function() {
