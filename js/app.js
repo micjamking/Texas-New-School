@@ -258,7 +258,7 @@ jQuery(function($) {
 		});
 	});
 
-	$(document).on('click', '.dropdown li', function(){
+	$(document).on('click', '.dropdown li, .name a', function(){
 		$('.dropdown li').removeClass('selected');
 		$(this).addClass('selected');
 	});
