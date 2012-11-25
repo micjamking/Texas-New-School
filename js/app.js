@@ -1,8 +1,5 @@
-/* 
- * Author: Mike King (@micjamking)
- */
-
 _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
+
 
 Express = {
 	models: {},
@@ -148,7 +145,7 @@ Express.views.PhotosView = Backbone.View.extend({
 		setTimeout(function () {
 			$('.loading').fadeOut(600, function(){
 				$('.photo').fadeIn();
-				if($(window).width() > 768){
+				if($(window).width() > 767){
 					var wall = new Masonry( document.getElementById('photo_container'), {  
 						isFitWidth: true,  
 						gutterWidth: 4 
@@ -204,10 +201,10 @@ function mediaQuery(){
 		var $tablet = $(this).attr('data-src-large');
 		var $desktop = $(this).attr('src');
 
-		if ( browserWidth < 767 && browserWidth > 480 ){
+		if ( browserWidth < 768 && browserWidth > 479 ){
 			$(this).attr('src', $tablet);
 			$('body').addClass('tablet');
-		} else if ( browserWidth < 479 ) {
+		} else if ( browserWidth < 480 ) {
 			$(this).attr('src', $mobile);
 			$('body').addClass('mobile');
 		} else {
@@ -249,7 +246,7 @@ jQuery(function($) {
 				$("#photoModal").find('.avatar').attr('src', avatar);
 				$("#photoModal").find('.artist').text(artist).attr('href', username);
 				$("#photoModal").find('.link').attr('href', link);
-				$('#container').css('-webkit-filter', 'blur(2px)');
+				$('#container').css('-webkit-filter', 'blur(3px)');
 			},
 			closed: function(){ 
 				$("#photoModal").find('.artwork').attr('src', '');
