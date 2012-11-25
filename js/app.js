@@ -83,8 +83,12 @@ Express.views.PhotoView = Backbone.View.extend({
 		console.log('PhotoView rendering');
 		img 	= new Image();
 		img.src = this.model.get('images').thumbnail.url;
-		img.setAttribute("data-src-large", 	this.model.get('images').standard_resolution.url);		
-		img.setAttribute("data-src-anchor", this.model.get('link'));
+		img.setAttribute("data-src-large", 	this.model.get('images').standard_resolution.url);
+		img.setAttribute("data-src-medium", this.model.get('images').low_resolution.url);		
+		img.setAttribute("data-src-anchor", this.model.get('link'));	
+		img.setAttribute("data-src-artist", this.model.get('user').full_name);
+		img.setAttribute("data-src-username", this.model.get('user').username);
+		img.setAttribute("data-src-avatar", this.model.get('user').profile_picture);
 		if (this.model.get('caption') !== null){ img.setAttribute("data-src-caption",this.model.get('caption').text); }
 		
 		span 			= document.createElement("span");
@@ -137,10 +141,22 @@ Express.views.PhotosView = Backbone.View.extend({
 		  
 	afterRender: function() {
 		console.log('PhotosView completed');
+		mediaQuery();
 		setTimeout(function () {
 			$('.loading').fadeOut(600, function(){
 				$('.photo').fadeIn();
-				var wall = new Masonry( document.getElementById('photo_container'), {  isFitWidth: true,  gutterWidth: 4 });
+				if($(window).width() > 768){
+					var wall = new Masonry( document.getElementById('photo_container'), {  
+						isFitWidth: true,  
+						gutterWidth: 4 
+					});
+
+					if(!($('body').hasClass('index'))){
+						var avatar	= $('.photo:eq(0)').find('img').attr('data-src-avatar');
+						$('.top-bar').find('.avatar').attr('src', avatar);
+						$('.top-bar .avatar').fadeIn();
+					}
+				}
 			});
 		}, 1000);
 	} 
@@ -177,8 +193,75 @@ Express.views.ErrorView = Backbone.View.extend({
 	}
 });
 
+function mediaQuery(){
+	var browserWidth = $(window).width();
+
+	$('.photo > img').each(function(){
+		var $mobile = $(this).attr('data-src-medium');
+		var $tablet = $(this).attr('data-src-large');
+		var $desktop = $(this).attr('src');
+
+		if ( browserWidth < 767 && browserWidth > 480 ){
+			$(this).attr('src', $tablet);
+			$('body').addClass('tablet');
+		} else if ( browserWidth < 479 ) {
+			$(this).attr('src', $mobile);
+			$('body').addClass('mobile');
+		} else {
+			$(this).attr('src', $desktop);
+			$('body').addClass('desktop');
+		}
+	});
+}
+
 
 jQuery(function($) {
+	
+	var $doc = $(document),
+		Modernizr = window.Modernizr;
+
+	$(document).ready(function() {
+		$.fn.foundationNavigation	? $doc.foundationNavigation() : null;
+		$.fn.foundationTopBar       ? $doc.foundationTopBar() : null;
+	});
+
+	/* Hide Address bar on iOS */
+	$(window).load(function () { setTimeout(function () { window.scrollTo(0, 1); }, 0); });
+	
+	/* Preloader */
+	$('#container').append('<i class="loading"></i>');
+	
+	/* Foundation modal window */
+	$(document).on("click", ".desktop .photo", function(){
+		var src 		= $(this).find('img').attr('data-src-large');
+		var link 		= $(this).find('img').attr('data-src-anchor');
+		var avatar		= $(this).find('img').attr('data-src-avatar');
+		var artist		= $(this).find('img').attr('data-src-artist');
+		var username	= 'http://www.instagram.com/' + $(this).find('img').attr('data-src-username');
+		
+		$("#photoModal").reveal({
+			animation: 'fade',
+			open: function(){		
+				$("#photoModal").find('.artwork').attr('src', src);
+				$("#photoModal").find('.avatar').attr('src', avatar);
+				$("#photoModal").find('.artist').text(artist).attr('href', username);
+				$("#photoModal").find('.link').attr('href', link);
+				$('#container').css('-webkit-filter', 'blur(2px)');
+			},
+			closed: function(){ 
+				$("#photoModal").find('.artwork').attr('src', '');
+				$("#photoModal").find('.avatar').attr('src', '');
+				$("#photoModal").find('.artist').text('').attr('href', '');
+				$("#photoModal").find('.link').attr('href', '');
+				$('#container').css('-webkit-filter', 'none');
+			}
+		});
+	});
+
+	$(document).on('click', '.dropdown li', function(){
+		$('.dropdown li').removeClass('selected');
+		$(this).addClass('selected');
+	});
 
 	var $timsinknart	= 52638890,
 		$thomaspage		= 21818000,
@@ -188,10 +271,10 @@ jQuery(function($) {
 	var Router = Backbone.Router.extend({
 		routes: {
 			"": 				"index",
-			"timsinknart":  	"timsinknart",
+			"timstafford":  	"timsinknart",
 			"thomaspage": 		"thomaspage",
 			"jeremymiller":   	"jeremymiller",
-			"ronstafari": 		"ronstafari",
+			"rongivens": 		"ronstafari",
 			"texasnewschool": 	"texasnewschool"
 		},
 
@@ -202,6 +285,7 @@ jQuery(function($) {
 		index: function(hash) {
 			if (Express.storage.getAccessToken()) {
 				$('.loading').fadeIn();
+				$('body').addClass('index');
 				var photos = new Express.collections.Photos();
 				photos.url = 'https://api.instagram.com/v1/tags/texasnewschool/media/recent?access_token=' + Express.storage.getAccessToken() + '&count=-1';
 				var view = new Express.views.PhotosView({ collection: photos });
@@ -218,6 +302,8 @@ jQuery(function($) {
 		},
 
 		texasnewschool: function() {
+			$('body').addClass('index');
+			$('.top-bar .avatar').fadeOut();
 			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
 			photos.url = 'https://api.instagram.com/v1/tags/texasnewschool/media/recent?access_token=' + Express.storage.getAccessToken() + '&count=-1';
@@ -226,33 +312,41 @@ jQuery(function($) {
 		},
 
 		timsinknart: function() {
+			$('body').removeClass('index');
+			$('.top-bar .avatar').fadeOut();
 			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
-			photos.url = 'https://api.instagram.com/v1/users/' + $timsinknart + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=-1';
+			photos.url = 'https://api.instagram.com/v1/users/' + $timsinknart + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=40';
 			var view = new Express.views.PhotosView({ collection: photos });
 			$("#main").html(view.el);
 		},
 
 		thomaspage: function() {
+			$('body').removeClass('index');
+			$('.top-bar .avatar').fadeOut();
 			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
-			photos.url = 'https://api.instagram.com/v1/users/' + $thomaspage + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=-1';
+			photos.url = 'https://api.instagram.com/v1/users/' + $thomaspage + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=40';
 			var view = new Express.views.PhotosView({ collection: photos });
 			$("#main").html(view.el);
 		},
 
 		jeremymiller: function() {
+			$('body').removeClass('index');
+			$('.top-bar .avatar').fadeOut();
 			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
-			photos.url = 'https://api.instagram.com/v1/users/' + $jeremymiller + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=-1';
+			photos.url = 'https://api.instagram.com/v1/users/' + $jeremymiller + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=40';
 			var view = new Express.views.PhotosView({ collection: photos });
 			$("#main").html(view.el);
 		},
 
 		ronstafari: function() {
+			$('body').removeClass('index');
+			$('.top-bar .avatar').fadeOut();
 			$('.loading').fadeIn();
 			var photos = new Express.collections.Photos();
-			photos.url = 'https://api.instagram.com/v1/users/' + $ronstafari + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=-1';
+			photos.url = 'https://api.instagram.com/v1/users/' + $ronstafari + '/media/recent/?access_token=' + Express.storage.getAccessToken() + '&count=40';
 			var view = new Express.views.PhotosView({ collection: photos });
 			$("#main").html(view.el);
 		}
@@ -261,58 +355,6 @@ jQuery(function($) {
 
 	router = new Router();
 
-	if (!Backbone.history.start()) {
-		$('body').html('404!');
-	}
-  
-    var $doc = $(document),
-      	Modernizr = window.Modernizr;
-
-	$(document).ready(function() {
-		$.fn.foundationAlerts           ? $doc.foundationAlerts() : null;
-		$.fn.foundationButtons          ? $doc.foundationButtons() : null;
-		$.fn.foundationAccordion        ? $doc.foundationAccordion() : null;
-		$.fn.foundationNavigation       ? $doc.foundationNavigation() : null;
-		$.fn.foundationTopBar           ? $doc.foundationTopBar() : null;
-		$.fn.foundationCustomForms      ? $doc.foundationCustomForms() : null;
-		$.fn.foundationMediaQueryViewer ? $doc.foundationMediaQueryViewer() : null;
-		$.fn.foundationTabs             ? $doc.foundationTabs({callback : $.foundation.customForms.appendCustomMarkup}) : null;
-		$.fn.foundationTooltips         ? $doc.foundationTooltips() : null;
-		$.fn.foundationMagellan         ? $doc.foundationMagellan() : null;
-		$.fn.foundationClearing         ? $doc.foundationClearing() : null;
-		$.fn.placeholder                ? $('input, textarea').placeholder() : null;
-	});
-
-	if (Modernizr.touch && !window.location.hash) {
-		$(window).load(function () {
-			setTimeout(function () {
-				window.scrollTo(0, 1);
-			}, 0);
-		});
-	}
-	
-	/* Foundation modal window */
-	$(document).on("click", ".photo", function(){
-		var src 	= $(this).find('img').attr('data-src-large');
-		var link 	= $(this).find('img').attr('data-src-anchor');
-		var text	= $(this).find('img').attr('data-src-caption');
-		
-		$("#photoModal").reveal({
-			animation: 'fade',
-			open: function(){		
-				$("#photoModal").find('img').attr('src', src);
-				$("#photoModal").find('.details a').attr('href', link).text(text);
-				$('#container').css('-webkit-filter', 'blur(2px)');
-			},
-			closed: function(){ 
-				$("#photoModal").find('img').attr('src', '');
-				$("#photoModal").find('.details a').attr('href', '').text('');
-				$('#container').css('-webkit-filter', 'none');
-			}
-		});
-	});
-	
-	/* Preloader */
-	$('#container').append('<i class="loading"></i>');
+	if (!Backbone.history.start()) { $('body').html('404!'); }
 
 });
