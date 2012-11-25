@@ -367,7 +367,7 @@ footer.row{
    Loading Animation
 ----------------------------------------- */
 
-.loading {
+.loading{
 	display: block;
 	box-sizing: content-box;
 	position: absolute;
@@ -381,7 +381,7 @@ footer.row{
 	animation: load 1.5s linear infinite;
 }
 
-.loading:before {
+.loading:before{
 	content: '';
 	display: block;
 	width: 60px;
@@ -394,7 +394,7 @@ footer.row{
 	border-radius: 100%;
 }
 
-.loading:after {
+.loading:after{
 	content: '';
 	display: block;
 	position: absolute;
