@@ -200,10 +200,16 @@ nav a{
    Modal
 ----------------------------------------- */
 .reveal-modal{
+	max-width: 632px;
 	background: #222;
 	border-radius: 5px;
 	padding: 0px;
 	z-index: 100;
+}
+
+.reveal-modal.large {
+	max-width: 632px;
+	margin-top: -30px;
 }
 
 .reveal-modal-bg{
@@ -279,6 +285,13 @@ footer.row{
 /* -----------------------------------------
    Media Queries
 ----------------------------------------- */
+@media only screen and (max-height: 706px) and (min-width: 1054px){
+	.reveal-modal.large {
+		margin-top: -95px;
+		margin-left: -25%;
+	}
+}
+
 @media only screen and (max-width: 940px){
 	.top-bar ul > li.has-dropdown.moved .dropdown li:not(.title) a{
 		padding: 12px 22.5px;
@@ -345,6 +358,7 @@ footer.row{
 	.photo{
 		padding-right: 0px;
 		padding-left: 0px;
+		margin: 5px 0;
 	}
 }
 
