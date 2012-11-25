@@ -20,20 +20,24 @@
 	<header class="fixed contain-to-grid">
 		<nav class="top-bar">
 			<ul>
-				<li class="name"><h1><a href="#texasnewschool">#texasnewschool</a></h1></li>
+				<li class="name">
+					<h1>Texas New School on Instagram</h1>
+					<a href="#texasnewschool">
+						<img class="logo" src="img/logo_texasnewschool.png" alt="Texas New School Logo" width="200" height="38" />
+					</a>
+				</li>
 				<li class="toggle-topbar"><a href="#"></a></li>
 			</ul>
+
 			<section>
 				<ul class="right">
 					<li class="has-dropdown">
-						<a href="#">Artists</a>
+						<img class="avatar" src="" width="30" height="30" />
+						<a href="#texasnewschool">Artists</a>
 						<ul class="dropdown">
 							<li><a href="#timstafford">Tim Stafford</a></li>
-							<li class="divider"></li>
 							<li><a href="#thomaspage">Thomas Page</a></li>
-							<li class="divider"></li>
 							<li><a href="#jeremymiller">Jeremy Miller</a></li>
-							<li class="divider"></li>
 							<li><a href="#rongivens">Ron Givens</a></li>
 						</ul>
 					</li>
@@ -45,26 +49,32 @@
 	<div id="container">
 		<div id="main"></div>
 	</div>
+
+	<!--<footer class="row">
+		<div class="social">
+			<iframe id="facebook" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.texasnewschool.com%2F&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font=arial&amp;height=21&amp;appId=275274839157442" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
+		</div>
+	</footer> -->
 	
+	<!-- Modal -->
 	<div id="photoModal" class="reveal-modal medium">
-		<img src="" alt="" />
-		<div class="row details"><a href="" target="_blank"></a></div>
+		<img class="artwork" src="" />
+		<div class="row details">
+			<img class="avatar" src="" width="40" height="40" />
+			<a class="artist" href="" target="_blank"></a>
+			<a class="link" href="" target="_blank">View on Instagram &rarr;</a>
+		</div>
 	</div>
 	
+	<!-- Template -->
 	<script type="template/underscore" id="photo_container">
 		<h1>This is the container</h1>
 	</script>
 
-	<script type="template/underscore" id="authentication">
-		<p>Instagram uses OAuth to allow this app to access your photos</p>
-		<a href="{{ authorizationUrl }}" id="authorize">Authorize my account</a>
-	</script>
-
 	<!-- Libraries -->
-	<script src="js/libs/jquery-1.7.1.js"></script>
+	<script src="js/libs/foundation.min.js"></script>
 	<script src="js/libs/underscore.js"></script>
 	<script src="js/libs/backbone.js"></script>
-	<script src="js/libs/foundation.min.js"></script>
 	<script src="js/libs/masonry.min.js"></script>
 	
 	<!-- Application -->
