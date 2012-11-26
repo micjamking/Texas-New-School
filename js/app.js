@@ -220,6 +220,15 @@ function mediaQuery(){
 	});
 }
 
+function retina_init() {
+	if(window.devicePixelRatio >= 1.25){
+		var logo = $("img.logo");
+		var src = $(logo).attr('src');
+		src = src.replace(".png", "@2x.png");
+		$(logo).attr('src', src);
+	}
+}
+
 
 jQuery(function($) {
 	
@@ -233,6 +242,9 @@ jQuery(function($) {
 
 	/* Hide Address bar on iOS */
 	$(window).load(function () { setTimeout(function () { window.scrollTo(0, 1); }, 0); });
+
+	/* Change Logo for HD Displays */
+	retina_init();
 	
 	/* Preloader */
 	$('#container').append('<i class="loading"></i>');
