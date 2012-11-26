@@ -88,7 +88,8 @@ Express.views.PhotoView = Backbone.View.extend({
 		img.src = this.model.get('images').thumbnail.url;
 		img.setAttribute("data-src-large", 	this.model.get('images').standard_resolution.url);
 		img.setAttribute("data-src-medium", this.model.get('images').low_resolution.url);		
-		img.setAttribute("data-src-anchor", this.model.get('link'));	
+		img.setAttribute("data-src-anchor", this.model.get('link'));		
+		img.setAttribute("data-src-id", this.model.get('id'));	
 		img.setAttribute("data-src-artist", this.model.get('user').full_name);
 		img.setAttribute("data-src-username", this.model.get('user').username);
 		img.setAttribute("data-src-avatar", this.model.get('user').profile_picture);
@@ -242,13 +243,12 @@ function retina_init() {
 
 
 function openInstagram() {
-	var normal = $(this).find('img').attr('data-src-anchor');
-	var instagram = normal.replace("http://instagr.am/p/", "instagram://media?id=");
-	instagram = instagram.substring(0, instagram.length - 1);
+	var normal 		= $(this).find('img').attr('data-src-anchor');
+	var instagram 	= 'instagram://media?id=' + $(this).find('img').attr('data-src-id');
 
 	$(this).on('touchend', function(e){
 		if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))){
-			console.log(instagram);
+			//console.log(instagram);
 			window.location.href = instagram;
 		} else {
 			window.location.href = normal;
