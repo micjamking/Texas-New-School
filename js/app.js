@@ -160,6 +160,17 @@ Express.views.PhotosView = Backbone.View.extend({
 						$('.top-bar .avatar').fadeIn();
 					}
 				}
+
+				/* Open instagram app on iPhone */
+				$('.photo').on('touchstart', openInstagram);
+
+				/* Open instagram on everything else mobile */
+				$(document).on('click', '.photo', function(){
+					if ( $(window).width() < 768 ){
+						window.location.href = $(this).find('img').attr('data-src-anchor');
+					}
+				});
+
 			});
 		}, 1000);
 	} 
@@ -198,7 +209,6 @@ Express.views.ErrorView = Backbone.View.extend({
 
 
 function mediaQuery(){
-
 	var browserWidth = $(window).width();
 
 	$('.photo > img').each(function(){
@@ -218,13 +228,8 @@ function mediaQuery(){
 			$('body').addClass('desktop');
 		}
 	});
-
-	$(document).on('click', '.photo', function(){
-		if ( browserWidth < 768 ){
-			window.location.href = $(this).find('img').attr('data-src-anchor');
-		}
-	});
 }
+
 
 function retina_init() {
 	if(window.devicePixelRatio >= 1.25){
@@ -236,7 +241,31 @@ function retina_init() {
 }
 
 
+function openInstagram() {
+	var normal = $(this).find('img').attr('data-src-anchor');
+	var instagram = normal.replace("http://instagr.am/p/", "instagram://media?id=");
+	instagram = instagram.substring(0, instagram.length - 1);
+
+	$(this).on('touchend', function(e){
+		if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))){
+			console.log(instagram);
+			window.location.href = instagram;
+		} else {
+			window.location.href = normal;
+		}
+		$(this).off('touchend');
+	});
+
+	$(this).on('touchmove', function(e){
+		$(this).off('touchend');
+	});     
+}
+
+
 jQuery(function($) {
+
+	/* Hide Address bar on iOS */
+	$(window).load(function () { setTimeout(function () { window.scrollTo(0, 1); }, 0); });
 	
 	/* Foundation & Modernizr  */
 	var $doc = $(document), Modernizr = window.Modernizr;
@@ -245,9 +274,6 @@ jQuery(function($) {
 		$.fn.foundationNavigation	? $doc.foundationNavigation() : null;
 		$.fn.foundationTopBar       ? $doc.foundationTopBar() : null;
 	});
-
-	/* Hide Address bar on iOS */
-	$(window).load(function () { setTimeout(function () { window.scrollTo(0, 1); }, 0); });
 
 	/* Change Logo for HD Displays */
 	retina_init();
