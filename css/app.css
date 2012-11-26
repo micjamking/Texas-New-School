@@ -162,6 +162,10 @@ nav a{
 	z-index: 0;
 }
 
+.photo:hover{
+	cursor: pointer;
+}
+
 .photo:hover > img{
 	transform: scale(1.25);
 	transform-origin: center center 0;

@@ -218,6 +218,12 @@ function mediaQuery(){
 			$('body').addClass('desktop');
 		}
 	});
+
+	$(document).on('click', '.photo', function(){
+		if ( browserWidth < 768 ){
+			window.location.href = $(this).find('img').attr('data-src-anchor');
+		}
+	});
 }
 
 function retina_init() {
