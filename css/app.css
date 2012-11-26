@@ -420,7 +420,7 @@ footer.row{
 ----------------------------------------- */
 
 .loading{
-	display: inline-block;
+	display: block;
 	box-sizing: content-box;
 	position: absolute;
 	top: 50%;
@@ -459,5 +459,6 @@ footer.row{
 }
 
 @keyframes load{ 
+	0%{ transform: rotate(0deg); } 
 	100%{ transform: rotate(360deg); } 
 }
