@@ -86,6 +86,20 @@ Express.views.PhotoView = Backbone.View.extend({
 		//console.log('PhotoView rendering');
 		img 	= new Image();
 		img.src = this.model.get('images').thumbnail.url;
+
+		// Setting static widths on image tag
+		if ( $(window).width() < 767 && $(window).width() > 479 ){
+			img.width  = this.model.get('images').standard_resolution.width;
+			img.height = this.model.get('images').standard_resolution.height;
+		} else if ( $(window).width() < 480 ) {
+			img.width  = this.model.get('images').low_resolution.width;
+			img.height = this.model.get('images').low_resolution.height;
+		} else {
+			img.width  = this.model.get('images').thumbnail.width;
+			img.height = this.model.get('images').thumbnail.height;
+		}
+
+		// Grab all image meta data and store it in data attributes
 		img.setAttribute("data-src-large", 	this.model.get('images').standard_resolution.url);
 		img.setAttribute("data-src-medium", this.model.get('images').low_resolution.url);		
 		img.setAttribute("data-src-anchor", this.model.get('link'));		
@@ -95,6 +109,7 @@ Express.views.PhotoView = Backbone.View.extend({
 		img.setAttribute("data-src-avatar", this.model.get('user').profile_picture);
 		if (this.model.get('caption') !== null){ img.setAttribute("data-src-caption",this.model.get('caption').text); }
 		
+		// Create span for like count
 		span 			= document.createElement("span");
 		span.innerHTML 	= this.model.get('likes').count;
 		span.setAttribute('class', 'likes');
@@ -149,10 +164,8 @@ Express.views.PhotosView = Backbone.View.extend({
 		setTimeout(function () {
 			$('.loading').fadeOut(600, function(){
 				$('.photo').fadeIn();
-				
-				if($(window).width() > 767){
 
-					$('.photo').find('img').attr({ width: '150', height: '150' });
+				if($(window).width() > 767){
 
 					var wall = new Masonry( document.getElementById('photo_container'), {  
 						isFitWidth: true,  
