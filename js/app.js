@@ -243,15 +243,11 @@ function retina_init() {
 
 
 function openInstagram() {
-	var normal 		= $(this).find('img').attr('data-src-anchor');
-	var instagram 	= 'instagram://media?id=' + $(this).find('img').attr('data-src-id');
-
 	$(this).on('touchend', function(e){
 		if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))){
-			//console.log(instagram);
-			window.location.href = instagram;
+			window.location.href = 'instagram://media?id=' + $(this).find('img').attr('data-src-id');
 		} else {
-			window.location.href = normal;
+			window.location.href = $(this).find('img').attr('data-src-anchor');
 		}
 		$(this).off('touchend');
 	});
