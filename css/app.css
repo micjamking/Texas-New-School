@@ -449,6 +449,14 @@ footer.row{
 	animation: load 1.5s linear infinite;
 }
 
+@-moz-document url-prefix() { 
+  .loading {
+	border: 3px solid #555;
+	border-left-color: transparent;
+	border-right-color: transparent;
+  }
+}
+
 .loading:before{
 	content: '';
 	display: block;
