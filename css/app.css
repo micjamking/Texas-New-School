@@ -99,10 +99,6 @@ nav a{
 	text-decoration: none; 
 }
 
-.top-bar{
-	height: 45px;
-}
-
 .contain-to-grid .top-bar{ 
 	max-width: 100%; 
 	margin: 0 auto; 
@@ -118,7 +114,7 @@ nav a{
 
 .top-bar .avatar{
 	display: none;
-	margin: 8px 0 0 10px;
+	margin: 16px 0 0 10px;
 	position: relative;
 	z-index: 101;
 }
@@ -341,6 +337,22 @@ footer.row{
 }
 
 @media only screen and (min-width: 940px){
+	.top-bar > ul .name img.logo{
+		margin-top: 10px;
+	}
+
+	.top-bar,.top-bar ul, .top-bar ul > li.has-dropdown > a{
+		height: 60px;
+	}
+
+	.top-bar ul > li.has-dropdown > a{
+		padding-top: 7px;
+	}
+
+	.top-bar .avatar{
+		margin: 16px 0 0 10px;
+	}
+
 	.top-bar ul > li.has-dropdown .dropdown li a{
 		text-align: right;
 		padding: 9px 17px 9px 0px;
@@ -369,7 +381,7 @@ footer.row{
 
 	.top-bar ul > li.has-dropdown:hover > .dropdown {
 		display: block;
-		top: 45px;
+		top: 60px;
 	}
 }
 
