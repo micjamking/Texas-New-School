@@ -149,7 +149,11 @@ Express.views.PhotosView = Backbone.View.extend({
 		setTimeout(function () {
 			$('.loading').fadeOut(600, function(){
 				$('.photo').fadeIn();
+				
 				if($(window).width() > 767){
+
+					$('.photo').find('img').attr({ width: '150', height: '150' });
+
 					var wall = new Masonry( document.getElementById('photo_container'), {  
 						isFitWidth: true,  
 						gutterWidth: 4 
