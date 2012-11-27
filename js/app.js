@@ -1,3 +1,7 @@
+/* 
+ * Author: Mike King (@micjamking)
+ */
+
 _.templateSettings = { interpolate : /\{\{(.+?)\}\}/g };
 
 
@@ -37,8 +41,7 @@ Express.config = {
 
 Express.storage = {
 	getAccessToken: function() {
-		return Express.config.accessToken; 
-		// Using personal AccessToken; should use public access but this is the recommended solution (http://goo.gl/2ig2e)
+		return Express.config.accessToken;  // http://goo.gl/2ig2e
 	},
 
 	setAccessToken: function(token) {
@@ -53,7 +56,7 @@ Express.storage = {
 
 Express.models.Photo = Backbone.Model.extend({
 	initialize: function() {
-		console.log('Photo initialized');
+		//console.log('Photo initialized');
 	}
 });
 
@@ -76,21 +79,37 @@ Express.views.PhotoView = Backbone.View.extend({
 	className: "photo",
 
 	initialize: function() {
-		console.log('PhotoView initialized');
+		//console.log('PhotoView initialized');
 	},
 
 	render: function() {
-		console.log('PhotoView rendering');
+		//console.log('PhotoView rendering');
 		img 	= new Image();
 		img.src = this.model.get('images').thumbnail.url;
+
+		// Setting static widths on image tag
+		if ( $(window).width() < 767 && $(window).width() > 479 ){
+			img.width  = this.model.get('images').standard_resolution.width;
+			img.height = this.model.get('images').standard_resolution.height;
+		} else if ( $(window).width() < 480 ) {
+			img.width  = this.model.get('images').low_resolution.width;
+			img.height = this.model.get('images').low_resolution.height;
+		} else {
+			img.width  = this.model.get('images').thumbnail.width;
+			img.height = this.model.get('images').thumbnail.height;
+		}
+
+		// Grab all image meta data and store it in data attributes
 		img.setAttribute("data-src-large", 	this.model.get('images').standard_resolution.url);
 		img.setAttribute("data-src-medium", this.model.get('images').low_resolution.url);		
-		img.setAttribute("data-src-anchor", this.model.get('link'));	
+		img.setAttribute("data-src-anchor", this.model.get('link'));		
+		img.setAttribute("data-src-id", this.model.get('id'));	
 		img.setAttribute("data-src-artist", this.model.get('user').full_name);
 		img.setAttribute("data-src-username", this.model.get('user').username);
 		img.setAttribute("data-src-avatar", this.model.get('user').profile_picture);
 		if (this.model.get('caption') !== null){ img.setAttribute("data-src-caption",this.model.get('caption').text); }
 		
+		// Create span for like count
 		span 			= document.createElement("span");
 		span.innerHTML 	= this.model.get('likes').count;
 		span.setAttribute('class', 'likes');
@@ -111,7 +130,7 @@ Express.views.PhotosView = Backbone.View.extend({
 	template: "#photo_container",
 
 	initialize: function() {
-		console.log('PhotosView initialized');
+		//console.log('PhotosView initialized');
 		var view = this;
 		this.collection.fetch({
 			dataType : 'jsonp',
@@ -129,7 +148,7 @@ Express.views.PhotosView = Backbone.View.extend({
 	},
 
 	render: function() {
-		console.log('PhotosView rendering');
+		//console.log('PhotosView rendering');
 		$(this.el).append(_.template($(this.template).html(), {}));
 		view = this;
 		_.each(this.collection.models, function(photo) {
@@ -140,12 +159,14 @@ Express.views.PhotosView = Backbone.View.extend({
 	},
 		  
 	afterRender: function() {
-		console.log('PhotosView completed');
+		//console.log('PhotosView completed');
 		mediaQuery();
 		setTimeout(function () {
 			$('.loading').fadeOut(600, function(){
 				$('.photo').fadeIn();
-				if($(window).width() > 768){
+
+				if($(window).width() > 767){
+
 					var wall = new Masonry( document.getElementById('photo_container'), {  
 						isFitWidth: true,  
 						gutterWidth: 4 
@@ -157,6 +178,17 @@ Express.views.PhotosView = Backbone.View.extend({
 						$('.top-bar .avatar').fadeIn();
 					}
 				}
+
+				/* Open instagram app on iPhone */
+				$('.photo').on('touchstart', openInstagram);
+
+				/* Open instagram on everything else mobile */
+				$(document).on('click', '.photo', function(){
+					if ( $(window).width() < 768 ){
+						window.location.href = $(this).find('img').attr('data-src-anchor');
+					}
+				});
+
 			});
 		}, 1000);
 	} 
@@ -168,7 +200,7 @@ Express.views.AuthorizeView = Backbone.View.extend({
 	template: "#authentication",
 
 	initialize: function() {
-		console.log("Initialised AuthorizeView");
+		//console.log("Initialised AuthorizeView");
 	},
 
 	render: function() {
@@ -193,18 +225,20 @@ Express.views.ErrorView = Backbone.View.extend({
 	}
 });
 
+
 function mediaQuery(){
 	var browserWidth = $(window).width();
 
 	$('.photo > img').each(function(){
-		var $mobile = $(this).attr('data-src-medium');
-		var $tablet = $(this).attr('data-src-large');
+
+		var $mobile  = $(this).attr('data-src-medium');
+		var $tablet  = $(this).attr('data-src-large');
 		var $desktop = $(this).attr('src');
 
-		if ( browserWidth < 767 && browserWidth > 480 ){
+		if ( browserWidth < 768 && browserWidth > 479 ){
 			$(this).attr('src', $tablet);
 			$('body').addClass('tablet');
-		} else if ( browserWidth < 479 ) {
+		} else if ( browserWidth < 480 ) {
 			$(this).attr('src', $mobile);
 			$('body').addClass('mobile');
 		} else {
@@ -215,18 +249,47 @@ function mediaQuery(){
 }
 
 
+function retina_init() {
+	if(window.devicePixelRatio >= 1.25){
+		var logo = $("img.logo");
+		var src = $(logo).attr('src');
+		src = src.replace(".png", "@2x.png");
+		$(logo).attr('src', src);
+	}
+}
+
+
+function openInstagram() {
+	$(this).on('touchend', function(e){
+		if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))){
+			window.location.href = 'instagram://media?id=' + $(this).find('img').attr('data-src-id');
+		} else {
+			window.location.href = $(this).find('img').attr('data-src-anchor');
+		}
+		$(this).off('touchend');
+	});
+
+	$(this).on('touchmove', function(e){
+		$(this).off('touchend');
+	});     
+}
+
+
 jQuery(function($) {
+
+	/* Hide Address bar on iOS */
+	$(window).load(function () { setTimeout(function () { window.scrollTo(0, 1); }, 0); });
 	
-	var $doc = $(document),
-		Modernizr = window.Modernizr;
+	/* Foundation & Modernizr  */
+	var $doc = $(document), Modernizr = window.Modernizr;
 
 	$(document).ready(function() {
 		$.fn.foundationNavigation	? $doc.foundationNavigation() : null;
 		$.fn.foundationTopBar       ? $doc.foundationTopBar() : null;
 	});
 
-	/* Hide Address bar on iOS */
-	$(window).load(function () { setTimeout(function () { window.scrollTo(0, 1); }, 0); });
+	/* Change Logo for HD Displays */
+	retina_init();
 	
 	/* Preloader */
 	$('#container').append('<i class="loading"></i>');
@@ -246,7 +309,7 @@ jQuery(function($) {
 				$("#photoModal").find('.avatar').attr('src', avatar);
 				$("#photoModal").find('.artist').text(artist).attr('href', username);
 				$("#photoModal").find('.link').attr('href', link);
-				$('#container').css('-webkit-filter', 'blur(2px)');
+				$('#container').css('-webkit-filter', 'blur(3px)');
 			},
 			closed: function(){ 
 				$("#photoModal").find('.artwork').attr('src', '');
@@ -257,17 +320,20 @@ jQuery(function($) {
 			}
 		});
 	});
-
-	$(document).on('click', '.dropdown li', function(){
+	
+	/* Navigation */
+	$(document).on('click', '.dropdown li, .name a', function(){
 		$('.dropdown li').removeClass('selected');
 		$(this).addClass('selected');
 	});
 
+	/* Instagram User ID's */
 	var $timsinknart	= 52638890,
 		$thomaspage		= 21818000,
 		$jeremymiller  	= 15994110,
 		$ronstafari		= 20038052;
 
+	/* Backbone: Routers (Navigation) */
 	var Router = Backbone.Router.extend({
 		routes: {
 			"": 				"index",
