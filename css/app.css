@@ -1,18 +1,11 @@
-/* Artfully masterminded by ZURB  */
-
-/* -------------------------------------------------- 
-   Table of Contents
------------------------------------------------------
-:: Shared Styles
-:: Page Name 1
-:: Page Name 2
-*/
-
+/* 
+ * Author: Mike King (@micjamking)
+ */
 
 /* -----------------------------------------
    Shared Styles
 ----------------------------------------- */
-@font-face {
+@font-face{
 	font-family: "GeneralFoundicons";
 	src: url("../fonts/general_foundicons.eot");
 	src: url("../fonts/general_foundicons.eot?#iefix") format("embedded-opentype"), 
@@ -23,7 +16,7 @@
 	font-style: normal;
 }
 
-[class*="foundicon-"] {
+[class*="foundicon-"]{
 	display: inline;
 	width: auto;
 	height: auto;
@@ -34,28 +27,34 @@
 	background-repeat: repeat;
 }
 
-[class*="foundicon-"]:before {
+[class*="foundicon-"]:before{
 	font-family: "GeneralFoundicons";
 	font-weight: normal;
 	font-style: normal;
 	text-decoration: inherit;
 }
 
-.foundicon-heart:before { content: "\f001"; }
+.foundicon-heart:before{ 
+	content: "\f001"; 
+}
 
-html {
-	background: #222;
-	font-family: sans-serif;
-	height: 100%;
+*{
+	-webkit-touch-callout: none; 
+	-webkit-user-select: none; 
+	user-select: none;
+}
+
+html, body{ 
+	height: 100%; 
+	background: #222; 
 }
 
 body{
-	background: #222;
-	height: 100%;
+	font-family: sans-serif;
 	color: #6E6E6E;
 }
 
-.row {
+.row{
 	width: 100%;
 	max-width: 100%;
 	min-width: 100%;
@@ -67,16 +66,15 @@ body{
    Header
 ----------------------------------------- */
 .artist, .logo{
-	-webkit-transition: all 0.25s ease-in;
-	-moz-transition: all 0.25s ease-in;
-	transition: all 0.25s ease-in;
+	transition: all 0.2s ease-in;
 }
 
 .logo:hover{
 	opacity: 0.5;
+	transform: translate(10px, 0);
 }
 
-.top-bar > ul .name h1 {
+.top-bar > ul .name h1{
 	display: none;
 }
 
@@ -89,81 +87,84 @@ body{
 	text-shadow: 1px 1px rgba(255,255,255,0.1);
 }
 
-#container { 
+#container{ 
 	width: 100%;  
 	height: 100%;
 	padding: 0 10px 40px;
 	position: relative;
-	-webkit-transition: -webkit-filter 0.5s ease-in-out;
+	transition: -webkit-filter 0.5s ease-in-out;
 }
 
-nav a { text-decoration: none; }
-
-.top-bar {
-	height: 45px;
+nav a{ 
+	text-decoration: none; 
 }
 
-.contain-to-grid .top-bar { 
+.contain-to-grid .top-bar{ 
 	max-width: 100%; 
 	margin: 0 auto; 
 }
 
-.top-bar ul > li:not(.name):hover, .top-bar ul > li:not(.name).active {
-	background: black;
-	background: rgba(0,0,0,0.25);
+.top-bar ul > li:not(.name):hover, .top-bar ul > li:not(.name).active, .top-bar ul > li:not(.name):hover > a{
+	background: #191919;
 }
 
-.top-bar ul > li.name {
+.top-bar ul > li.name{
 	background: transparent !important;
 }
 
-.top-bar .avatar {
+.top-bar .avatar{
 	display: none;
-	margin: 8px 10px 0 0;
+	margin: 16px 0 0 10px;
+	position: relative;
+	z-index: 101;
 }
 
 .top-bar ul > li.has-dropdown .dropdown li.selected a{
 	background: #3C3C3C;
 }
 
+.top-bar ul > li.has-dropdown .dropdown li a{
+	transition: all 0.15s ease-in;
+}
 
 /* -----------------------------------------
    Gallery
 ----------------------------------------- */
-#photo_container{ margin: -4px auto 0; }
-#photo_container li{ list-style: none; position: relative;}
+#photo_container{ 
+	margin: -4px auto 0; 
+}
 
-.photo {
+#photo_container li{ 
+	list-style: none; 
+	position: relative;
+}
+
+.photo{
 	float: left;
 	cursor: pointer;
 	margin: 4px 2px;
-	-webkit-transition: all 0.25s ease;
-	-moz-transition: all 0.25s ease;
 	transition: all 0.25s ease;
 	overflow: hidden;
 }
 
-.photo img {
+.photo img{
 	position: relative;
 	display: block;
 	width: 100% !important;
 	min-width: 150px;
 	height: auto !important;
-	-webkit-transition: all 0.25s ease;
-	-moz-transition: all 0.25s ease;
 	transition: all 0.25s ease;
 	opacity: 1;
 	z-index: 0;
 }
 
-.photo:hover > img{
-	-webkit-transform: scale(1.25);
-	-webkit-transform-origin: center center 0;
-	/*-webkit-filter: blur(1px);*/
+.photo:hover{
+	cursor: pointer;
 }
 
-.photo:hover > .likes, .photo:hover > .foundicon-heart{
-	opacity: 1;
+.photo:hover > img{
+	transform: scale(1.25);
+	transform-origin: center center 0;
 }
 
 .likes, .foundicon-heart{
@@ -174,21 +175,22 @@ nav a { text-decoration: none; }
 	width: 100%;
 	top: 0;
 	left: 0;
-	background: rgba(0,0,0,0.5);
-	box-shadow: inset 0px 0px 20px rgba(0,0,0,0.5);
 	z-index: 2;
 	color: rgba(0,0,0,0.75);
 	text-align: center;
 	font-weight: bold;
 	font-size: 48px;
-	padding: 27px;
-	-webkit-transition: all 0.25s ease;
-	-moz-transition: all 0.25s ease;
+	padding: 30px;
 	transition: all 0.25s ease;
 }
 
+.foundicon-heart{
+	background: rgba(0,0,0,0.75);
+	box-shadow: inset 0px 0px 20px rgba(0,0,0,0.75);
+}
+
 .foundicon-heart:before{
-	color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.35);
 	font-size: 120px;
 	text-align: center;
 	position: absolute;
@@ -197,36 +199,39 @@ nav a { text-decoration: none; }
 	z-index: 0;
 }
 
-#photo_container,
-.photo {
-  -webkit-transition-duration: 0.5s;
-     -moz-transition-duration: 0.5s;
-      -ms-transition-duration: 0.5s;
-       -o-transition-duration: 0.5s;
-          transition-duration: 0.5s;
-  -webkit-transition-property: all;
-     -moz-transition-property: all;
-      -ms-transition-property: all;
-       -o-transition-property: all;
-          transition-property: all;
+.likes, .foundicon-heart:before{
+	transform: scale(0.5);
+}
+
+.photo:hover > .likes, 
+.photo:hover > .foundicon-heart, 
+.photo:hover > .foundicon-heart:before{
+	opacity: 1;
+	transform: scale(1);
+}
+
+#photo_container, .photo{
+	transition-duration: 0.5s;
+    transition-property: all;
 }
 
 
 /* -----------------------------------------
    Modal
 ----------------------------------------- */
-.reveal-modal {
+.reveal-modal{
+	padding: 0px;
+	margin-top: -30px;
 	background: #222;
 	border-radius: 5px;
-	padding: 0px;
 	z-index: 100;
 }
 
-.reveal-modal-bg {
+.reveal-modal-bg{
 	background: rgba(0, 0, 0, 0.75);
 }
 
-.reveal-modal > img {
+.reveal-modal > img{
 	padding: 10px;
 }
 
@@ -239,13 +244,24 @@ nav a { text-decoration: none; }
 	border-radius: 3px;
 	border-top-left-radius: 0px;
 	border-top-right-radius: 0px;
-	-webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.07);
+	box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.07);
+}
+
+.prevent{
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 90%;
+	max-width: 632px;
+	max-height: 632px;
 }
 
 .avatar{
 	float: left;
-	margin: 0 10px 0 0;
-	border: 2px solid rgba(255,255,255,0.75);
+	margin: 0 12px 0 2px;
+	box-shadow: 0px 0px 0px 2px rgba(255,255,255,0.75);
 	border-radius: 40px;
 }
 
@@ -260,6 +276,7 @@ nav a { text-decoration: none; }
 
 .artist:hover{
 	color: #404040;
+	transform: translate(10px, 0);
 }
 
 .link{
@@ -294,42 +311,91 @@ footer.row{
 /* -----------------------------------------
    Media Queries
 ----------------------------------------- */
-@media only screen and (max-width: 940px){
-	.top-bar ul > li.has-dropdown.moved .dropdown li:not(.title) a {
-		padding: 12px 22.5px;
+@media only screen and (max-height: 706px){
+	.reveal-modal{
+		margin-top: -95px;
 	}
 }
-@media only screen and (min-width: 767px){
-	.top-bar ul > li.has-dropdown .dropdown li a {
+
+@media only screen and (min-width: 1052px){
+	.reveal-modal{
+		max-width: 632px;
+		margin-left: -316px !important;
+	}
+}
+
+@media only screen and (max-width: 940px){
+	.top-bar ul > li:not(.name):hover > a{
+		background: transparent;
+	}
+	.top-bar ul > li.has-dropdown.moved .dropdown li:not(.title) a{
+		padding: 12px 22.5px;
+	}
+	
+	.top-bar ul > li.has-dropdown .dropdown li:not(.title) a:hover{
+		transform: translate(10px,0);
+	}
+}
+
+@media only screen and (min-width: 940px){
+	.top-bar > ul .name img.logo{
+		margin-top: 10px;
+	}
+
+	.top-bar,.top-bar ul, .top-bar ul > li.has-dropdown > a{
+		height: 60px;
+	}
+
+	.top-bar ul > li.has-dropdown > a{
+		padding-top: 7px;
+	}
+
+	.top-bar .avatar{
+		margin: 16px 0 0 10px;
+	}
+
+	.top-bar ul > li.has-dropdown .dropdown li a{
 		text-align: right;
-		padding: 9px 17px 9px 25px;
-		-webkit-transition: all 0.15s ease-in;
-		-moz-transition: all 0.15s ease-in;
-		transition: all 0.15s ease-in;
+		padding: 9px 17px 9px 0px;
 	}
 	
 	.top-bar ul > li.has-dropdown .dropdown li a:hover{
-		-webkit-transform: translate(-10px,0);
+		transform: translate(-10px,0);
 	}
 
-	.top-bar ul > li.has-dropdown a {
-		padding-left: 45px;
+	.top-bar ul > li.has-dropdown a{
+		background: #222;
+		padding-left: 60px;
+		position: relative;
+		z-index: 100;
+	}
+
+	.top-bar ul > li.has-dropdown:hover > .dropdown{
+		max-height: 150px;
+	}
+
+	.top-bar ul > li.has-dropdown .dropdown {
+		left: 0 !important;
+		top: -113px;
+		transition: all 0.25s ease-in-out;
 	}
 
 	.top-bar ul > li.has-dropdown:hover > .dropdown {
-		max-height: 150px;
+		display: block;
+		top: 60px;
 	}
 }
 
 @media only screen and (max-width: 767px){
-	.top-bar ul > li:not(.name):hover, .top-bar ul > li:not(.name).active {
+	.top-bar ul > li:not(.name):hover, .top-bar ul > li:not(.name).active{
 		background: transparent;
 	}
+
 	.reveal-modal, 
 	.reveal-modal.small, 
 	.reveal-modal.medium, 
 	.reveal-modal.large, 
-	.reveal-modal.xlarge {
+	.reveal-modal.xlarge{
 		padding: 0px;
 	}
 
@@ -339,8 +405,7 @@ footer.row{
 	}
 	
 	.photo:hover > img{ 
-		-webkit-filter: none; 
-		-webkit-transform: none;
+		transform: none;
 	}
 	 
 	.photo:hover > .likes, 
@@ -362,6 +427,7 @@ footer.row{
 	.photo{
 		padding-right: 0px;
 		padding-left: 0px;
+		margin: 5px 0;
 	}
 }
 
@@ -369,26 +435,55 @@ footer.row{
 /* -----------------------------------------
    Loading Animation
 ----------------------------------------- */
-.loading {
-	font-size: 100%;
-	-webkit-box-sizing: content-box;
-	-moz-box-sizing: content-box;
+
+.loading{
+	display: block;
 	box-sizing: content-box;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -20px 0 0 -20px;
+	margin: -23px 0 0 -23px;
 	width: 40px;
 	height: 40px;
+	border: 3px dashed #555;
 	border-radius: 50%;
-	border: 5px solid rgba(0,0,0,0.25);
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	-webkit-animation: load 1.5s infinite linear;
-	-moz-animation: load 1.5s infinite linear;
-	animation: load 1.5s infinite linear;
+	animation: load 1.5s linear infinite;
 }
 
-@-webkit-keyframes load { 100% { -webkit-transform: rotate(360deg); } }
-@-moz-keyframes load { 100% { -moz-transform: rotate(360deg); } }
-@keyframes load { 100% { transform: rotate(360deg); } }
+@-moz-document url-prefix() { 
+  .loading {
+	border: 3px solid #555;
+	border-left-color: transparent;
+	border-right-color: transparent;
+  }
+}
+
+.loading:before{
+	content: '';
+	display: block;
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -30px 0 0 -30px;
+	border: 3px solid rgba(0, 0, 0, 0.25);
+	border-radius: 100%;
+}
+
+.loading:after{
+	content: '';
+	display: block;
+	position: absolute;
+	bottom: 5px;
+	left: 5px;
+	right: 5px;
+	top: 5px;
+	border: 10px solid rgba(0, 0, 0, 0.25);
+	border-radius: 100%;
+}
+
+@keyframes load{ 
+	0%{ transform: rotate(0deg); } 
+	100%{ transform: rotate(360deg); } 
+}
