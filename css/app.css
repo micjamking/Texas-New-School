@@ -220,16 +220,11 @@ nav a{
    Modal
 ----------------------------------------- */
 .reveal-modal{
-	max-width: 632px;
+	padding: 0px;
+	margin-top: -30px;
 	background: #222;
 	border-radius: 5px;
-	padding: 0px;
 	z-index: 100;
-}
-
-.reveal-modal.large {
-	max-width: 632px;
-	margin-top: -30px;
 }
 
 .reveal-modal-bg{
@@ -316,10 +311,11 @@ footer.row{
 /* -----------------------------------------
    Media Queries
 ----------------------------------------- */
-@media only screen and (max-height: 706px) and (min-width: 1054px){
-	.reveal-modal.large {
+@media only screen and (min-width: 1052px){
+	.reveal-modal{
+		max-width: 632px;
 		margin-top: -95px;
-		margin-left: -25%;
+		margin-left: -316px !important;
 	}
 }
 
