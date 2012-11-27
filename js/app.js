@@ -160,6 +160,7 @@ Express.views.PhotosView = Backbone.View.extend({
 		  
 	afterRender: function() {
 		//console.log('PhotosView completed');
+		filterStream();
 		mediaQuery();
 		setTimeout(function () {
 			$('.loading').fadeOut(600, function(){
@@ -225,6 +226,19 @@ Express.views.ErrorView = Backbone.View.extend({
 	}
 });
 
+function filterStream(){
+	var artists = { 
+		"jeremymiller": true, 
+		"thomaspage": true, 
+		"ronstafari": true, 
+		"timsinknart": true 
+	};
+	
+	$('.photo img').each(function(){
+		var currentartist = $(this).attr("data-src-username");
+		if (!(artists[currentartist])){ $(this).parent().remove(); }
+	});
+}
 
 function mediaQuery(){
 	var browserWidth = $(window).width();
