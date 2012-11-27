@@ -311,7 +311,7 @@ footer.row{
 /* -----------------------------------------
    Media Queries
 ----------------------------------------- */
-@media only screen and (max-height: 706px){
+@media only screen and (max-height: 706px) and (min-width: 1052px){
 	.reveal-modal{
 		margin-top: -95px;
 	}
