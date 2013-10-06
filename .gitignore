@@ -1,0 +1,17 @@
+# Ignored file pattern for Texas New School Web App
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Yeoman
+node_modules
+dist
+.tmp
+.sass-cache
+app/bower_components
