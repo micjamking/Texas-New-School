@@ -1,3 +1,6 @@
+/*
+ Author: Mike King (@micjamking)
+*/
 'use strict';
 
 angular.module('instaApp', ['instaDirectives']);
@@ -6,10 +9,10 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 
 	$scope.data    = [];
 
-	var flag         = false,
-		access_token = '588857635.a7acbee.35e620e9d8794d639e95600900ba7959',
-		base_url     = 'https://api.instagram.com/v1/tags/';
-		param_url    = '/media/recent?access_token=' + access_token + '&callback=JSON_CALLBACK';
+	var flag        = false,
+		accessToken = '588857635.a7acbee.35e620e9d8794d639e95600900ba7959',
+		baseURL     = 'https://api.instagram.com/v1/tags/',
+		paramURL   = '/media/recent?access_token=' + accessToken + '&callback=JSON_CALLBACK';
 
 
 	var properties = function(object){
@@ -24,10 +27,9 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 
 	var ajax = function(params, bool){
 
-		var i, photos;
 		params = params || '';
 
-		$http.jsonp(base_url + $scope.hashtag + param_url + params).success(function(data){
+		$http.jsonp(baseURL + $scope.hashtag + paramURL + params).success(function(data){
 
 			if (bool){
 
@@ -51,7 +53,7 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 
 	$scope.loadMore = function(){
 
-		var next_page = '&max_tag_id=' + $scope.data[$scope.data.length - 1].pagination.next_max_tag_id;
+		var nextPage = '&max_tag_id=' + $scope.data[$scope.data.length - 1].pagination.next_max_tag_id;
 
 		if (flag) {
 
@@ -60,7 +62,7 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 		} else {
 
 			flag = true;
-			ajax(next_page);
+			ajax(nextPage);
 			setTimeout(function(){ flag = false; }, 1500);
 
 		}
@@ -71,7 +73,7 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 });
 
 angular.module('instaDirectives', []).directive('whenScrolled', function() {
-    return function(scope, elm, attr) {
+	return function(scope, elm, attr) {
 
 		var	raw       = elm[0],
 			w         = window,
@@ -83,12 +85,12 @@ angular.module('instaDirectives', []).directive('whenScrolled', function() {
 			search    = document.querySelector('.search').offsetHeight,
 			height    = (y - marginTop) - search + 'px';
 
-        raw.style.height = height;
+		raw.style.height = height;
 
-        elm.bind('scroll', function() {
-            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-                scope.$apply(attr.whenScrolled);
-            }
-        });
-    };
+		elm.bind('scroll', function() {
+			if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+				scope.$apply(attr.whenScrolled);
+			}
+		});
+	};
 });
