@@ -2,81 +2,18 @@
  Author: Mike King (@micjamking)
 */
 
-*{
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+/* Vendors */
+@import "foundation/scss/foundation",
+		"foundation/scss/normalize";
+@import "compass/css3";
 
-body{
-    text-align: center;
-}
+/* Base */
+@import "base/animations";
+@import "base/color";
 
-.wrapper{
-    margin-top: 10px;
-}
-
-.search{
-    padding: 20px 0 30px;
-    width: 60%;
-    margin: 0 auto;
-}
-
-.search > form {
-    position: relative;
-}
-
-.search button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: rgb(255, 182, 51);
-    border: none;
-    height: 100%;
-    width: 15%;
-    font-size: 1em;
-    color: white;
-    cursor: pointer;
-}
-
-.search input {
-    height: 40px;
-    width: 100%;
-    font-size: 1.75em;
-    border: 1px solid rgb(222, 222, 222);
-    padding-left: 2%;
-    padding-right: 17%;
-}
-
-.main {
-    overflow: auto;
-    padding: 0 20px;
-}
-
-img {
-    max-width: 612px;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.animate-enter,
-.animate-leave
-{
-    -webkit-transition: 0.2s linear all;
-    -moz-transition: 0.2s linear all;
-    -o-transition: 0.2s linear all;
-    transition: 0.2s linear all;
-    opacity: 0;
-}
-
-.animate-leave.animate-leave-active,
-.animate-enter {
-    opacity: 0;
-}
-
-.animate-enter.animate-enter-active,
-.animate-leave {
-    opacity: 1;
-}
+/* Modules */
+@import "modules/footer";
+@import "modules/gallery";
+@import "modules/header";
+@import "modules/layout";
+@import "modules/search";

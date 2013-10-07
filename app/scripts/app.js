@@ -10,50 +10,102 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 	$scope.data    = [];
 
 	var flag        = false,
+		count       = '&count=40',
 		accessToken = '588857635.a7acbee.35e620e9d8794d639e95600900ba7959',
-		baseURL     = 'https://api.instagram.com/v1/tags/',
-		paramURL   = '/media/recent?access_token=' + accessToken + '&callback=JSON_CALLBACK';
+		baseURL     = 'https://api.instagram.com/v1/',
+		paramURL    = '/media/recent?access_token=' + accessToken + count + '&callback=JSON_CALLBACK',
+		artists     = {
+			timsinknart: 52638890,
+			thomaspage: 21818000,
+			jeremymiller: 15994110
+		};
 
-
-	var properties = function(object){
-
-		object = object[0].data[0];
-
-		for (var key in object){
-			console.log(key);
-		}
-	};
-
-
-	var ajax = function(params, bool){
+	var ajax = function(params, bool, artist){
 
 		params = params || '';
 
-		$http.jsonp(baseURL + $scope.hashtag + paramURL + params).success(function(data){
+		if (artist){
 
-			if (bool){
+			$http.jsonp(baseURL + 'users/' + artist + paramURL + params).success(function(data){
+				dataPush(bool, data);
+			});
 
-				$scope.data = [data];
+		} else {
 
-			} else {
+			$http.jsonp(baseURL + 'tags/' + 'texasnewschool' + paramURL + params).success(function(data){
+				dataPush(bool, data);
+			});
 
-				$scope.data.push(data);
-
-			}
-
-			properties($scope.data);
-
-		});
+		}
 	};
 
-	$scope.newSearch = function(){
+	var dataPush = function(bool, object){
 
-		ajax(null, true);
+		if (bool){
+
+			$scope.data = [filterStream(object)];
+
+		} else {
+
+			$scope.data.push(filterStream(object));
+
+		}
+	};
+
+	var filterStream = function(object){
+
+		var i, current,
+			pigment = {},
+			artists = {
+				'jeremymiller': true,
+				'thomaspage': true,
+				'timsinknart': true
+			};
+
+		pigment.data       = [];
+		pigment.meta       = object.meta;
+		pigment.pagination = object.pagination;
+
+		for (i = 0; i < object.data.length; i++){
+
+			current = object.data[i].user.username;
+
+			if ((artists[current])){
+				pigment.data.push(object.data[i]);
+			}
+		}
+
+		return pigment;
+	};
+
+	$scope.newSearch = function(artist){
+
+		if (artist) {
+
+			ajax(null, true, artists[artist]);
+			$scope.artist = artists[artist];
+
+		} else {
+
+			ajax(null, true);
+
+		}
 	};
 
 	$scope.loadMore = function(){
 
-		var nextPage = '&max_tag_id=' + $scope.data[$scope.data.length - 1].pagination.next_max_tag_id;
+		var nextPage,
+			object = $scope.data[$scope.data.length - 1];
+
+		if ('next_max_tag_id' in object.pagination){
+
+			nextPage = '&max_tag_id=' + object.pagination.next_max_tag_id;
+
+		} else {
+
+			nextPage = '&max_id=' + object.pagination.next_max_id;
+
+		}
 
 		if (flag) {
 
@@ -61,18 +113,24 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 
 		} else {
 
-			flag = true;
-			ajax(nextPage);
+			flag          = true;
+			$scope.artist = $scope.artist || null;
+			ajax(nextPage,null, $scope.artist);
 			setTimeout(function(){ flag = false; }, 1500);
 
 		}
+	};
+
+	$scope.newHeight = function(){
+		console.log($scope.toggleDisplay);
 	};
 
 	ajax();
 
 });
 
-angular.module('instaDirectives', []).directive('whenScrolled', function() {
+angular.module('instaDirectives', [])
+.directive('whenScrolled', function() {
 	return function(scope, elm, attr) {
 
 		var	raw       = elm[0],
@@ -81,9 +139,10 @@ angular.module('instaDirectives', []).directive('whenScrolled', function() {
 			e         = d.documentElement,
 			g         = d.getElementsByTagName('body')[0],
 			y         = w.innerHeight || e.clientHeight || g.clientHeight,
-			marginTop = document.querySelector('.wrapper').offsetTop,
-			search    = document.querySelector('.search').offsetHeight,
-			height    = (y - marginTop) - search + 'px';
+			small     = window.matchMedia('only screen and (min-width: 768px)'),
+			marginTop = document.querySelector('.main').offsetTop,
+			header    = document.querySelector('.wrapper .large-3').clientHeight,
+			height    = (y - marginTop) - ( small.matches ? 0 : header) + 'px';
 
 		raw.style.height = height;
 
@@ -91,6 +150,16 @@ angular.module('instaDirectives', []).directive('whenScrolled', function() {
 			if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
 				scope.$apply(attr.whenScrolled);
 			}
+		});
+	};
+})
+.directive('lazyLoad', function () {
+	return function(scope, elm) {
+
+		elm.bind('load', function(){
+
+			var parent = elm[0].parentNode;
+			angular.element(parent).addClass('show');
 		});
 	};
 });
