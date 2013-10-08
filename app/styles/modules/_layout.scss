@@ -1,0 +1,30 @@
+/* ==========================================================================
+	Layout
+   ========================================================================== */
+
+html,
+body,
+.wrapper{
+	height: 100%;
+}
+
+body{
+    position: inherit;
+    text-align: center;
+    font-family: 'Titillium Web', sans-serif;
+    -webkit-animation: bugfix infinite 1s;
+
+	.wrapper{
+		background: rgb(44, 63, 82);
+	    margin: 0;
+	    max-width: 100%;
+	}
+
+	.show {
+		display: block;
+	}
+
+	.hide {
+		display: none;
+	}
+}

@@ -1,0 +1,31 @@
+/* ==========================================================================
+	Footer
+   ========================================================================== */
+
+footer {
+	display: none;
+
+	@media #{$small}{
+		display: block;
+	}
+
+	.contact-info{
+		list-style: none;
+		font-size: 0.75em;
+		opacity: 0;
+		@include animation-name(fadeIn);
+		@include animation-duration(0.75s);
+		@include animation-timing-function(ease);
+		@include animation-delay(2.0s);
+		@include animation-fill-mode(forwards);
+
+		a {
+			color: rgb(202,207,212);
+			@include transition(all 0.25s ease);
+
+			&:hover {
+				color: #00a99d;
+			}
+		}
+	}
+}

@@ -1,0 +1,140 @@
+/* ==========================================================================
+	Header
+   ========================================================================== */
+
+header {
+	position: relative;
+
+	@media #{$small} {
+		margin-top: 50%;
+	}
+
+	.logo {
+		max-width: emCalc(135px);
+		opacity: 0.75;
+		@include transition(all 0.25s ease);
+		margin-top: 2em;
+		text-align: left;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		@media #{$small} {
+			max-width: emCalc(180px);
+			margin-top: 0;
+			text-align: center;
+		}
+	}
+
+	.side-nav {
+		margin-top: 1em;
+		margin-left: -0.9375em;
+		margin-right: -0.9375em;
+		padding: 1.5em 0 2em;
+		opacity: 0;
+		@include animation-name(fadeIn);
+		@include animation-duration(0.75s);
+		@include animation-timing-function(ease);
+		@include animation-delay(1.0s);
+		@include animation-fill-mode(forwards);
+
+		li {
+			margin: 0;
+			font-size: 0.875em;
+			padding: 0.75em 0;
+			border-top: 1px solid darken(#2C3F52, 3.5%);
+			@include transition(all 0.25s ease);
+
+			a {
+				color: #FFF;
+				font-weight: normal;
+				font-size: 1.14285714285714em;
+				@include transition(all 0.25s ease);
+			}
+
+			&:last-child{
+				border-bottom: 1px solid darken(#2C3F52, 3.5%);
+			}
+
+			&:hover,
+			&.active {
+				padding-left: 0.9375em;
+				background-color: darken(#2C3F52, 5%);
+				@include box-shadow(inset 5px 0 0 #00a99d);
+
+
+				a {
+					color: #00a99d;
+					font-weight: normal;
+
+					&:first-child {
+						color: #00a99d;
+						font-weight: normal;
+					}
+				}
+			}
+
+			&.active {
+				background-color: hsl(217, 40%, 96%);
+			}
+		}
+	}
+
+	#toggle, .toggle {
+		display: none;
+	}
+
+	.toggle{
+		z-index: 2;
+	}
+
+	@media only screen and (max-width: 768px){
+		.side-nav {
+			display: none;
+			width: 100%;
+			/* position: absolute;
+			right: 0; */
+		}
+
+		.toggle {
+			display: block;
+			position: relative;
+			cursor: pointer;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			user-select: none;
+		}
+
+		#toggle:checked ~ .side-nav {
+			display: block;
+			opacity: 1;
+		}
+
+		.toggle:after {
+			content: attr(data-open);
+			display: block;
+			width: 200px;
+			margin: 33px 0;
+			padding: 10px 50px;
+			background: #00a99d;
+			@include border-radius(2px);
+			text-align: center;
+			font-size: emCalc(14px);
+			color: #FFFFFF;
+			@include transition(all 0.25s ease);
+		}
+
+		.toggle:hover:after{
+			background: darken(#00a99d, 5%);
+		}
+
+		#toggle:checked + .toggle:after{
+			content: attr(data-close);
+		}
+		.toggle:after {
+			text-align: center;
+			width: 100%;
+		}
+	}
+}

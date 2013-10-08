@@ -1,0 +1,131 @@
+/* ==========================================================================
+	Gallery
+   ========================================================================== */
+
+.photo-container {
+	position: relative;
+	background: #F1F4F9;
+    padding: 1.875em 0.9375em 0;
+
+    &:after {
+    	content:'';
+    	display: block;
+    	width: 100%;
+    	height: 4em;
+    	position:absolute;
+    	bottom: 0;
+    	left: 0;
+    	@include background-gradient(top, 75%,
+    								rgba(241, 244, 249, 0),
+    								rgb(241, 244, 249),
+    								rgb(241, 244, 249));
+    }
+
+    @media #{$small}{
+    	height: 100%;
+    }
+}
+
+.main {
+    overflow: auto;
+
+    article.row {
+
+    	margin: 0;
+    }
+
+    .fadeIn{
+    	position: inherit;
+
+		@for $item from 1 through 20{
+			&.image-#{$item}{
+				@include animation-delay(#{$item/4}s);
+			}
+		}
+	}
+
+    figure{
+		display: none;
+    	position: relative;
+    	margin-bottom: 1.875em;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			max-width: 100%;
+			position: relative;
+			@include transition(all 0.4s ease);
+		}
+
+		&:hover img{
+			@include transform(translateY(-50px) scale(1.1));
+		}
+
+		&:hover figcaption{
+			opacity: 1;
+			@include transform(translateY(0px));
+			-webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
+			-moz-transition: -moz-transform 0.4s, opacity 0.1s;
+			transition: transform 0.4s, opacity 0.1s;
+		}
+
+    	figcaption {
+			width: 100%;
+			padding: 20px;
+			position: absolute;
+			top: auto;
+			bottom: 0;
+			background: #2c3f52;
+			font-size: 0.875em;
+			text-align: left;
+			opacity: 0;
+			@include transform(translateY(100%));
+			-webkit-transition: -webkit-transform 0.4s, opacity 0.1s 0.3s;
+			-moz-transition: -moz-transform 0.4s, opacity 0.1s 0.3s;
+			transition: transform 0.4s, opacity 0.1s 0.3s;
+
+			h3 {
+				margin: 0;
+				padding: 0;
+				color: #fff;
+			}
+
+			 span {
+				display: block;
+				margin-bottom: 1em;
+				color: #fff;
+
+				&.right{
+					text-align: right;
+				}
+			}
+
+			a {
+				color: lighten(#00a99d, 5%);
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			.button {
+				display: block;
+				padding: 5px 10px;
+				margin-bottom: 0;
+				border-radius: 2px;
+				border: 0 none;
+				background: #00a99d;
+				text-align: center;
+				font-weight: normal;
+				color: #fff;
+				@include box-shadow(none);
+				@include transition(all 0.25s ease);
+
+				&:hover {
+					background: darken(#00a99d, 5%);
+					text-decoration: none;
+				}
+			}
+		}
+    }
+}

@@ -1,0 +1,17 @@
+/* ==========================================================================
+	Animation - Mixins
+   ========================================================================== */
+
+
+@mixin background-gradient($angle, $thirdStop, $startColor, $middleColor, $endColor) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, right top,
+    				  color-stop(0%,$startColor),
+    				  color-stop( $thirdStop,$middleColor),
+    				  color-stop(100%,$endColor));
+    background-image: -webkit-linear-gradient($angle, $startColor 0%, $middleColor  $thirdStop, $endColor 100%);
+    background-image:    -moz-linear-gradient($angle, $startColor 0%, $middleColor  $thirdStop, $endColor 100%);
+    background-image:     -ms-linear-gradient($angle, $startColor 0%, $middleColor  $thirdStop, $endColor 100%);
+    background-image:      -o-linear-gradient($angle, $startColor 0%, $middleColor  $thirdStop, $endColor 100%);
+    background-image:         linear-gradient($angle, $startColor 0%, $middleColor  $thirdStop, $endColor 100%);
+}

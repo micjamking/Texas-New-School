@@ -1,0 +1,316 @@
+/* ==========================================================================
+	Animation - Mixins
+   ========================================================================== */
+
+@mixin animation($params) {
+	-webkit-animation: $params;
+	-moz-animation: $params;
+	-o-animation: $params;
+	animation: $params;
+}
+
+@mixin animation-name($name) {
+	-webkit-animation-name: $name;
+	-moz-animation-name: $name;
+	-o-animation-name: $name;
+	animation-name: $name;
+}
+
+@mixin animation-timing-function($ease) {
+	-webkit-animation-timing-function: $ease;
+	-moz-animation-timing-function: $ease;
+	-ms-animation-timing-function: $ease;
+	-o-animation-timing-function: $ease;
+	animation-timing-function: $ease;
+}
+
+@mixin animation-fill-mode($mode) {
+	-webkit-animation-fill-mode: $mode;
+	-moz-animation-fill-mode: $mode;
+	-ms-animation-fill-mode: $mode;
+	-o-animation-fill-mode: $mode;
+	animation-fill-mode: $mode;
+}
+
+@mixin animation-duration($sec){
+	-webkit-animation-duration: $sec;
+	-moz-animation-duration: $sec;
+	-ms-animation-duration: $sec;
+	-o-animation-duration: $sec;
+	animation-duration: $sec;
+}
+
+@mixin animation-delay($sec){
+	-webkit-animation-delay: $sec;
+	-moz-animation-delay: $sec;
+	-ms-animation-delay: $sec;
+	-o-animation-delay: $sec;
+	animation-delay: $sec;
+}
+
+@mixin keyframes($name) {
+	@-webkit-keyframes $name {
+		@content;
+	}
+
+	@-moz-keyframes $name {
+		@content;
+	}
+
+	@-ms-keyframes $name {
+		@content;
+	}
+
+	@-o-keyframes $name {
+		@content;
+	}
+
+	@keyframes $name {
+		@content;
+	}
+}
+
+@mixin backface-visibility($value) {
+	-webkit-backface-visibility: $value;
+	-moz-backface-visibility: $value;
+	-o-backface-visibility: $value;
+	backface-visibility: $value;
+}
+
+@mixin transform-origin($param) {
+	-webkit-transform-origin: $param;
+	-moz-transform-origin: $param;
+	-ms-transform-origin: $param;
+	-o-transform-origin: $param;
+	transform-origin: $param;
+}
+
+
+/* ==========================================================================
+	Animation - Classes
+   ========================================================================== */
+
+.preloader2{
+	display: block;
+	width: 70px;
+	height: 70px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -35px;
+	margin-left: -35px;
+}
+
+.petal-1 {
+	fill: rgba(219, 219, 219, 0.75);
+	@include transform-origin(90% 90%);
+	@include animation(rotate 0.75s linear infinite);
+}
+
+.petal-2 {
+	fill: rgba(0, 169, 157, 0.75);
+	@include transform-origin(10% 65%);
+	@include animation(rotate 1.5s linear infinite);
+}
+
+.petal-3 {
+	fill: rgba(44, 63, 82, 0.75);
+	@include transform-origin(67% 10%);
+	@include animation(rotate 0.75s linear infinite reverse);
+}
+
+.bounceIn {
+	@include animation(bounceIn 0.75s ease);
+}
+
+.fadeIn {
+	opacity: 0;
+	@include animation-name(fadeIn);
+	@include animation-duration(0.75s);
+	@include animation-timing-function(ease);
+	@include animation-fill-mode(forwards);
+}
+
+.fadeInGrow {
+	opacity: 0;
+	@include animation-name(fadeInGrow);
+	@include animation-duration(0.75s);
+	@include animation-timing-function(ease);
+	@include animation-fill-mode(forwards);
+}
+
+.fadeOut {
+	@include animation-name(fadeOut);
+	@include animation-duration(0.75s);
+	@include animation-timing-function(ease);
+	@include animation-fill-mode(forwards);
+}
+
+.fadeOutShrink {
+	@include animation-name(fadeOutShrink);
+	@include animation-duration(0.75s);
+	@include animation-timing-function(ease);
+	@include animation-fill-mode(forwards);
+}
+
+.fadeInUp {
+	@include animation(fadeInUp 0.75s ease);
+}
+
+.fadeInDown {
+	opacity: 0;
+	@include animation-name(fadeInDown);
+	@include animation-duration(0.75s);
+	@include animation-timing-function(ease);
+	@include animation-fill-mode(forwards);
+}
+
+.flipInX,
+.flipInY {
+	@include backface-visibility(visible !important);
+}
+
+.flipInX {
+	@include animation(flipInX 1.75s ease);
+}
+
+.flipInY {
+	@include animation(flipInY 1.75s ease);
+}
+
+
+/* ==========================================================================
+	Animation - Keyframes
+   ========================================================================== */
+
+@-webkit-keyframes bugfix {
+	from {
+		padding:0;
+	}
+	to {
+		padding:0;
+	}
+}
+
+@include keyframes(rotate) {
+	to {
+		@include transform(rotate(359deg));
+	}
+}
+
+@include keyframes(fadeIn){
+	0% {
+		@include opacity (0);
+	}
+	100% {
+		@include opacity (1);
+	}
+}
+
+@include keyframes(fadeOut){
+	0% {
+		@include opacity (1);
+	}
+	100% {
+		@include opacity (0);
+	}
+}
+
+@include keyframes(fadeInGrow){
+	0% {
+		@include opacity (0);
+		@include transform(scale(0.25));
+	}
+	100% {
+		@include opacity (1);
+		@include transform(scale(1));
+	}
+}
+
+@include keyframes(fadeOutShrink){
+	0% {
+		@include opacity (1);
+		@include transform(scale(1));
+	}
+	100% {
+		@include opacity (0);
+		@include transform(scale(0.25));
+	}
+}
+
+@include keyframes(fadeInDown){
+	0% {
+		@include opacity (0);
+		@include transform (translateY(-20px));
+	}
+	100% {
+		@include opacity (0.75);
+		@include transform (translateY(0px));
+	}
+}
+
+@include keyframes(fadeInLeft){
+	0% {
+		@include opacity (0);
+		@include transform (translateX(-20px));
+	}
+	100% {
+		@include opacity (1);
+		@include transform (translateX(0px));
+	}
+}
+
+@include keyframes(fadeInRight){
+	0% {
+		@include opacity (0);
+		@include transform (translateX(20px));
+	}
+	100% {
+		@include opacity (1);
+		@include transform (translateX(0px));
+	}
+}
+
+@include keyframes(bounceIn) {
+	0% {
+		opacity: 0;
+		@include transform(scale(.3));
+	}
+
+	50% {
+		opacity: 1;
+		@include transform(scale(1.05));
+	}
+
+	70% {
+		@include transform(scale(.95));
+	}
+
+	100% {
+		@include transform(scale(1));
+	}
+}
+
+@include keyframes(flipInX){
+	0% {
+		@include transform(perspective(400px) rotateX(90deg));
+		@include opacity(0);
+	}
+
+	100% {
+		@include transform(perspective(400px) rotateX(0deg));
+		@include opacity(1);
+	}
+}
+
+@include keyframes(flipInY){
+	0% {
+		@include transform(perspective(400px) rotateY(90deg));
+		@include opacity(0);
+	}
+
+	100% {
+		@include transform(perspective(400px) rotateY(0deg));
+		@include opacity(1);
+	}
+}
