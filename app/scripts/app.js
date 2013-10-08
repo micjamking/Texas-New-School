@@ -5,12 +5,13 @@
 
 angular.module('instaApp', ['instaDirectives']);
 
-angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
+angular.module('instaApp').controller('InstaCtrl', function ($scope, $http, $timeout){
 
 	$scope.data    = [];
 
 	var flag        = false,
 		count       = '&count=40',
+		preloader   = document.querySelector('.preloader2'),
 		accessToken = '588857635.a7acbee.35e620e9d8794d639e95600900ba7959',
 		baseURL     = 'https://api.instagram.com/v1/',
 		paramURL    = '/media/recent?access_token=' + accessToken + count + '&callback=JSON_CALLBACK',
@@ -27,13 +28,13 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 		if (artist){
 
 			$http.jsonp(baseURL + 'users/' + artist + paramURL + params).success(function(data){
-				dataPush(bool, data);
+				$timeout(dataPush(bool, data), 1500);
 			});
 
 		} else {
 
 			$http.jsonp(baseURL + 'tags/' + 'texasnewschool' + paramURL + params).success(function(data){
-				dataPush(bool, data);
+				$timeout(dataPush(bool, data), 1500);
 			});
 
 		}
@@ -50,6 +51,7 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 			$scope.data.push(filterStream(object));
 
 		}
+		angular.element(preloader).attr('class', 'preloader2 fadeOut');
 	};
 
 	var filterStream = function(object){
@@ -80,6 +82,8 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 
 	$scope.newSearch = function(artist){
 
+		angular.element(preloader).attr('class', 'preloader2 fadeIn');
+
 		if (artist) {
 
 			ajax(null, true, artists[artist]);
@@ -96,6 +100,8 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 
 		var nextPage,
 			object = $scope.data[$scope.data.length - 1];
+
+		angular.element(preloader).attr('class', 'preloader2 fadeIn');
 
 		if ('next_max_tag_id' in object.pagination){
 
@@ -121,10 +127,6 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http){
 		}
 	};
 
-	$scope.newHeight = function(){
-		console.log($scope.toggleDisplay);
-	};
-
 	ajax();
 
 });
@@ -143,6 +145,8 @@ angular.module('instaDirectives', [])
 			marginTop = document.querySelector('.main').offsetTop,
 			header    = document.querySelector('.wrapper .large-3').clientHeight,
 			height    = (y - marginTop) - ( small.matches ? 0 : header) + 'px';
+
+		console.log(header);
 
 		raw.style.height = height;
 
