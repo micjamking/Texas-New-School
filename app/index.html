@@ -2,44 +2,44 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" ng-app="txnsApp"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" ng-app="txnsApp"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" ng-app="txnsApp"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" ng-app="txnsApp"> <!--<![endif]-->
-  <head>
-    <meta charset="UTF-8" />
+<!--[if gt IE 8]><!--> <html lang="en" class="no-js" ng-app="txnsApp"> <!--<![endif]-->
+<head>
+	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="description" content="Texas New School tattoo artists from Pigment Dermagraphics and Fine Art in Austin, Texas." />
 	<meta name="keywords" content="texas new school, texasnewschool, new school, tattoo, tattoos, instagram, instagram tattoo artists, tattoo design, tattoo designs, tattoo picture, tattoo art, graffiti tattoo, tattoo shop, fine arts, illustration, drawings, cartoon characters, character design, austin, texas, jeremy miller, jeremy miller tattoos, thomas page, tim stafford, pigment dermagraphics" />
 	<meta name="google-site-verification" content="kUtUayaETOm5W-3PY--N3wwdRcs5fZjjukABHW-naLc" />
-    <meta name="author" content="Mike King" />
-    <link rel="author" href="https://plus.google.com/u/0/112398162809101288990/" />
+	<meta name="author" content="Mike King" />
+	<link rel="author" href="https://plus.google.com/u/0/112398162809101288990/" />
 	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Titillium+Web'>
 
 	<!-- build:css(.tmp) styles/main.css -->
 	<link rel="stylesheet" href="styles/main.css" />
 	<!-- endbuild -->
 
-    <!-- IE Fix for HTML5 Tags -->
-    <!--[if lt IE 9]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
 	<!-- Disable print & right-click behavior
-    <style type="text/css" media="print"> body { display: none; } </style>
-    <script> document.oncontextmenu = new Function('return false'); </script>
-    -->
+	<style type="text/css" media="print"> body { display: none; } </style>
+	<script> document.oncontextmenu = new Function('return false'); </script>
+	-->
 
-	<title>#texasnewschool | Texas New School Tattoo Artists on Instagram</title>
+	<!-- IE Fix for HTML5 Tags -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<title>#texasnewschool | Pigment Dermagraphics on Instagram</title>
 </head>
 <body ng-controller="txnsCtrl">
-	<!--[if lt IE 7]>
+	<!--[if lt IE 9]>
 	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
 
-    <div class="row wrapper">
+	<div class="row container">
 
-    	<section class="large-3 columns">
-    		<header>
-    			<a href="/" ng-click="newSearch()">
+		<section class="large-3 columns">
+			<header>
+				<a href="/" ng-click="newSearch()">
 					<img class="logo fadeInDown" src="images/logo_pigment.white.png" alt="Pigment Dermagraphics Logo" width="180" height="100" />
 				</a>
 				<input type="checkbox" id="toggle" ng-model="toggleDisplay" />
@@ -63,15 +63,15 @@
 					<li>p: <a href="tel:1-512-331-5476">512-331-5476</a></li>
 				</ul>
 			</footer>
-    	</section>
+		</section>
 
-        <!-- Gallery -->
-        <section class="photo-container large-9 columns">
-        	<div class="main" when-scrolled="loadMore()">
-	            <article class="row" ng-repeat="object in data">
-	            	<div class="large-4 columns fadeIn image-{{ $index + 1 }}" ng-repeat="photo in object.data">
-		            	<figure>
-		                	<img ng-src="{{ photo.images.standard_resolution.url }}" alt="{{ photo.user.full_name }} on Instagram" lazy-load />
+		<!-- Gallery -->
+		<section class="photo-container large-9 columns">
+			<div class="main" when-scrolled="loadMore()">
+				<article class="row" ng-repeat="object in data">
+					<div class="large-4 columns fadeIn image-{{ $index + 1 }}" ng-repeat="photo in object.data">
+						<figure>
+							<img ng-src="{{ photo.images.standard_resolution.url }}" alt="{{ photo.user.full_name }} on Instagram" lazy-load />
 							<figcaption>
 								<div class="row">
 									<span class="left small-8 columns">by <a href="http://instagram.com/{{ photo.user.username }}" alt="{{ photo.user.full_name }} on Instagram" target="_blank">{{ photo.user.full_name }}</a></span>
@@ -79,9 +79,9 @@
 								</div>
 								<a class="button" href="{{ photo.link }}" alt="{{ photo.user.full_name }} on Instagram" target="_blank">View on Instagram</a>
 							</figcaption>
-		               	</figure>
-	               	</div>
-	            </article>
+						</figure>
+					</div>
+				</article>
 				<svg class="preloader" viewBox="-12 -12 100 100">
 					<g>
 						<path class="petal-1" d="M16.3 37.65Q-12.457227 28.917383 9.525 8.425 31.473633 -12.042188 38.225 17.2 45.033398 46.443555 16.3 37.65"/>
@@ -89,9 +89,9 @@
 						<path class="petal-3" d="M49.45 56.45Q56.604102 85.581641 27.775 77.25 -1.0511719 68.885742 20.575 48.1 42.24668 27.332227 49.45 56.45"/>
 					</g>
 				</svg>
-            </div>
-        </secion>
-    </div>
+			</div>
+		</secion>
+	</div>
 
 	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID
 	 <script>
@@ -100,7 +100,7 @@
 	   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	   ga('create', 'UA-XXXXX-X');
+	   ga('create', 'UA-20024456-10');
 	   ga('send', 'pageview');
 	</script>
 	-->

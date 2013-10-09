@@ -45,11 +45,11 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 
 		if (bool){
 
-			pageTransition(function(){ $scope.data = [filterStream(object)]; console.log($scope.data);});
+			pageTransition(function(){ $scope.data = [filterStream(object)]; });
 
 		} else {
 
-			pageTransition(function(){ $scope.data.push(filterStream(object)); console.log($scope.data);});
+			pageTransition(function(){ $scope.data.push(filterStream(object)); });
 
 		}
 	};
@@ -173,7 +173,7 @@ angular.module('txnsDirectives', [])
 			y         = w.innerHeight || e.clientHeight || g.clientHeight,
 			small     = window.matchMedia('only screen and (min-width: 768px)'),
 			marginTop = document.querySelector('.main').offsetTop,
-			header    = document.querySelector('.wrapper .large-3').clientHeight,
+			header    = document.querySelector('.container .large-3').clientHeight,
 			height    = (y - marginTop) - ( small.matches ? 0 : header) + 'px';
 
 		raw.style.height = height;

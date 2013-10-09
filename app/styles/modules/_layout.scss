@@ -4,7 +4,7 @@
 
 html,
 body,
-.wrapper{
+.container{
 	height: 100%;
 }
 
@@ -14,7 +14,7 @@ body{
     font-family: 'Titillium Web', sans-serif;
     -webkit-animation: bugfix infinite 1s;
 
-	.wrapper{
+	.container{
 		background: rgb(44, 63, 82);
 	    margin: 0;
 	    max-width: 100%;
