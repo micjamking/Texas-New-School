@@ -70,13 +70,6 @@
 	}
 }
 
-@mixin backface-visibility($value) {
-	-webkit-backface-visibility: $value;
-	-moz-backface-visibility: $value;
-	-o-backface-visibility: $value;
-	backface-visibility: $value;
-}
-
 @mixin transform-origin($param) {
 	-webkit-transform-origin: $param;
 	-moz-transform-origin: $param;
@@ -90,7 +83,7 @@
 	Animation - Classes
    ========================================================================== */
 
-.preloader2{
+.preloader{
 	display: block;
 	width: 70px;
 	height: 70px;
@@ -119,10 +112,6 @@
 	@include animation(rotate 0.75s linear infinite reverse);
 }
 
-.bounceIn {
-	@include animation(bounceIn 0.75s ease);
-}
-
 .fadeIn {
 	opacity: 0;
 	@include animation-name(fadeIn);
@@ -141,7 +130,7 @@
 
 .fadeOut {
 	@include animation-name(fadeOut);
-	@include animation-duration(0.75s);
+	@include animation-duration(0.5s);
 	@include animation-timing-function(ease);
 	@include animation-fill-mode(forwards);
 }
@@ -153,29 +142,12 @@
 	@include animation-fill-mode(forwards);
 }
 
-.fadeInUp {
-	@include animation(fadeInUp 0.75s ease);
-}
-
 .fadeInDown {
 	opacity: 0;
 	@include animation-name(fadeInDown);
 	@include animation-duration(0.75s);
 	@include animation-timing-function(ease);
 	@include animation-fill-mode(forwards);
-}
-
-.flipInX,
-.flipInY {
-	@include backface-visibility(visible !important);
-}
-
-.flipInX {
-	@include animation(flipInX 1.75s ease);
-}
-
-.flipInY {
-	@include animation(flipInY 1.75s ease);
 }
 
 
@@ -246,71 +218,5 @@
 	100% {
 		@include opacity (0.75);
 		@include transform (translateY(0px));
-	}
-}
-
-@include keyframes(fadeInLeft){
-	0% {
-		@include opacity (0);
-		@include transform (translateX(-20px));
-	}
-	100% {
-		@include opacity (1);
-		@include transform (translateX(0px));
-	}
-}
-
-@include keyframes(fadeInRight){
-	0% {
-		@include opacity (0);
-		@include transform (translateX(20px));
-	}
-	100% {
-		@include opacity (1);
-		@include transform (translateX(0px));
-	}
-}
-
-@include keyframes(bounceIn) {
-	0% {
-		opacity: 0;
-		@include transform(scale(.3));
-	}
-
-	50% {
-		opacity: 1;
-		@include transform(scale(1.05));
-	}
-
-	70% {
-		@include transform(scale(.95));
-	}
-
-	100% {
-		@include transform(scale(1));
-	}
-}
-
-@include keyframes(flipInX){
-	0% {
-		@include transform(perspective(400px) rotateX(90deg));
-		@include opacity(0);
-	}
-
-	100% {
-		@include transform(perspective(400px) rotateX(0deg));
-		@include opacity(1);
-	}
-}
-
-@include keyframes(flipInY){
-	0% {
-		@include transform(perspective(400px) rotateY(90deg));
-		@include opacity(0);
-	}
-
-	100% {
-		@include transform(perspective(400px) rotateY(0deg));
-		@include opacity(1);
 	}
 }

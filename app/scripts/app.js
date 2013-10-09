@@ -3,15 +3,16 @@
 */
 'use strict';
 
-angular.module('instaApp', ['instaDirectives']);
+angular.module('txnsApp', ['txnsDirectives']);
 
-angular.module('instaApp').controller('InstaCtrl', function ($scope, $http, $timeout){
+angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeout){
 
 	$scope.data    = [];
 
 	var flag        = false,
-		count       = '&count=40',
-		preloader   = document.querySelector('.preloader2'),
+		count       = '&count=42',
+		preloader   = document.querySelector('.preloader'),
+		gallery     = document.getElementsByTagName('article'),
 		accessToken = '588857635.a7acbee.35e620e9d8794d639e95600900ba7959',
 		baseURL     = 'https://api.instagram.com/v1/',
 		paramURL    = '/media/recent?access_token=' + accessToken + count + '&callback=JSON_CALLBACK',
@@ -28,30 +29,29 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http, $tim
 		if (artist){
 
 			$http.jsonp(baseURL + 'users/' + artist + paramURL + params).success(function(data){
-				$timeout(dataPush(bool, data), 1500);
+				applyScope(bool, data);
 			});
 
 		} else {
 
 			$http.jsonp(baseURL + 'tags/' + 'texasnewschool' + paramURL + params).success(function(data){
-				$timeout(dataPush(bool, data), 1500);
+				applyScope(bool, data);
 			});
 
 		}
 	};
 
-	var dataPush = function(bool, object){
+	var applyScope = function(bool, object){
 
 		if (bool){
 
-			$scope.data = [filterStream(object)];
+			pageTransition(function(){ $scope.data = [filterStream(object)]; console.log($scope.data);});
 
 		} else {
 
-			$scope.data.push(filterStream(object));
+			pageTransition(function(){ $scope.data.push(filterStream(object)); console.log($scope.data);});
 
 		}
-		angular.element(preloader).attr('class', 'preloader2 fadeOut');
 	};
 
 	var filterStream = function(object){
@@ -80,14 +80,28 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http, $tim
 		return pigment;
 	};
 
+	var pageTransition = function(func){
+
+		$timeout(function(){
+			if (angular.element(gallery).hasClass('fadeOut')){
+				angular.element(gallery).removeClass('fadeOut').addClass('fadeIn');
+			}
+			func();
+			angular.element(preloader).attr('class', 'preloader fadeOut');
+		}, 1500);
+
+	};
+
 	$scope.newSearch = function(artist){
 
-		angular.element(preloader).attr('class', 'preloader2 fadeIn');
+		angular.element(gallery).attr('class', 'row fadeOut');
+		angular.element(preloader).attr('class', 'preloader fadeIn');
 
 		if (artist) {
 
-			ajax(null, true, artists[artist]);
 			$scope.artist = artists[artist];
+			ajax(null, true, artists[artist]);
+
 
 		} else {
 
@@ -101,7 +115,7 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http, $tim
 		var nextPage,
 			object = $scope.data[$scope.data.length - 1];
 
-		angular.element(preloader).attr('class', 'preloader2 fadeIn');
+		angular.element(preloader).attr('class', 'preloader fadeIn');
 
 		if ('next_max_tag_id' in object.pagination){
 
@@ -121,17 +135,33 @@ angular.module('instaApp').controller('InstaCtrl', function ($scope, $http, $tim
 
 			flag          = true;
 			$scope.artist = $scope.artist || null;
-			ajax(nextPage,null, $scope.artist);
-			setTimeout(function(){ flag = false; }, 1500);
+			ajax(nextPage, null, $scope.artist);
+			setTimeout(function(){ flag = false; }, 3000);
 
 		}
 	};
 
-	ajax();
+	var hashBang = function(){
+		var artist = window.location.hash.substr(1);
+
+		if (artist) {
+
+			ajax(null, null, artists[artist]);
+			$scope.user = artist;
+
+		} else {
+
+			ajax();
+
+		}
+
+	};
+
+	hashBang();
 
 });
 
-angular.module('instaDirectives', [])
+angular.module('txnsDirectives', [])
 .directive('whenScrolled', function() {
 	return function(scope, elm, attr) {
 
@@ -146,12 +176,10 @@ angular.module('instaDirectives', [])
 			header    = document.querySelector('.wrapper .large-3').clientHeight,
 			height    = (y - marginTop) - ( small.matches ? 0 : header) + 'px';
 
-		console.log(header);
-
 		raw.style.height = height;
 
 		elm.bind('scroll', function() {
-			if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
+			if (raw.scrollTop + raw.offsetHeight >= (raw.scrollHeight * 0.9)) {
 				scope.$apply(attr.whenScrolled);
 			}
 		});

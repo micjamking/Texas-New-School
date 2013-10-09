@@ -1,10 +1,17 @@
 /*
  Author: Mike King (@micjamking)
 */
+@charset "UTF-8";
 
 /* Vendors */
-@import "foundation/scss/foundation",
-		"foundation/scss/normalize";
+@import "foundation/scss/normalize",
+		"foundation/scss/foundation/variables",
+		"foundation/scss/foundation/components/global",
+		"foundation/scss/foundation/components/grid",
+		"foundation/scss/foundation/components/type",
+		"foundation/scss/foundation/components/visibility",
+		"foundation/scss/foundation/components/side-nav";
+
 @import "compass/css3";
 
 /* Base */

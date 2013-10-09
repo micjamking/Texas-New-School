@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "dependencies": {
     "angular": "1.2.0-rc.2",
-    "foundation": "~4.3.2",
-    "es5-shim": "2.1.0",
-    "json3": "~3.2.4"
+    "foundation": "~4.3.2"
   }
 }

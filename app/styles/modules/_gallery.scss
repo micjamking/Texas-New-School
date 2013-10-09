@@ -32,17 +32,17 @@
     article.row {
 
     	margin: 0;
-    }
 
-    .fadeIn{
-    	position: inherit;
+		.fadeIn{
+			position: inherit;
 
-		@for $item from 1 through 20{
-			&.image-#{$item}{
-				@include animation-delay(#{$item/4}s);
+			@for $item from 1 through 20{
+				&.image-#{$item}{
+					@include animation-delay(#{$item/4}s);
+				}
 			}
 		}
-	}
+    }
 
     figure{
 		display: none;
