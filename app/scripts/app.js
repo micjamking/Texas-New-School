@@ -10,7 +10,7 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 	$scope.data    = [];
 
 	var flag        = false,
-		count       = '&count=42',
+		count       = '&count=30',
 		preloader   = document.querySelector('.preloader'),
 		gallery     = document.getElementsByTagName('article'),
 		accessToken = '588857635.a7acbee.35e620e9d8794d639e95600900ba7959',
@@ -68,6 +68,14 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 		pigment.meta       = object.meta;
 		pigment.pagination = object.pagination;
 
+		if ($scope.photoRemainder){
+
+			for (i = 0; i < $scope.photoRemainder.length; i++){
+				pigment.data.push($scope.photoRemainder[i]);
+			}
+
+		}
+
 		for (i = 0; i < object.data.length; i++){
 
 			current = object.data[i].user.username;
@@ -77,7 +85,22 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 			}
 		}
 
+		$scope.photoRemainder = [];
+		evenRows(pigment);
+
 		return pigment;
+	};
+
+	var evenRows = function(object){
+
+		var remainder = object.data.length % 3,
+			index     = object.data.length - remainder;
+
+		if (remainder === 0) {
+			return;
+		} else {
+			$scope.photoRemainder = object.data.splice(index, remainder);
+		}
 	};
 
 	var pageTransition = function(func){
