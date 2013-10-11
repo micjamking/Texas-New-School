@@ -217,7 +217,6 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 	};
 
 	$scope.openInstagram = function(e){
-		console.log('Yo!');
 
 		var elem = angular.element(e.srcElement);
 
