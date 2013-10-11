@@ -29,13 +29,17 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 		if (artist){
 
 			$http.jsonp(baseURL + 'users/' + artist + paramURL + params).success(function(data){
+
 				applyScope(bool, data);
+
 			});
 
 		} else {
 
 			$http.jsonp(baseURL + 'tags/' + 'texasnewschool' + paramURL + params).success(function(data){
+
 				applyScope(bool, data);
+
 			});
 
 		}
@@ -52,6 +56,21 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 			pageTransition(function(){ $scope.data.push(filterStream(object)); });
 
 		}
+	};
+
+	var pageTransition = function(func){
+
+		$timeout(function(){
+			if (angular.element(gallery).hasClass('fadeOut')){
+
+				angular.element(gallery).removeClass('fadeOut').addClass('fadeIn');
+
+			}
+
+			func();
+			angular.element(preloader).attr('class', 'preloader fadeOut');
+		}, 1500);
+
 	};
 
 	var filterStream = function(object){
@@ -71,7 +90,9 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 		if ($scope.photoRemainder){
 
 			for (i = 0; i < $scope.photoRemainder.length; i++){
+
 				pigment.data.push($scope.photoRemainder[i]);
+
 			}
 
 		}
@@ -81,7 +102,9 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 			current = object.data[i].user.username;
 
 			if ((artists[current])){
+
 				pigment.data.push(object.data[i]);
+
 			}
 		}
 
@@ -89,6 +112,7 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 		evenRows(pigment);
 
 		return pigment;
+
 	};
 
 	var evenRows = function(object){
@@ -97,21 +121,30 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 			index     = object.data.length - remainder;
 
 		if (remainder === 0) {
+
 			return;
+
 		} else {
+
 			$scope.photoRemainder = object.data.splice(index, remainder);
+
 		}
+
 	};
 
-	var pageTransition = function(func){
+	var hashBang = function(){
+		var artist = window.location.hash.substr(1);
 
-		$timeout(function(){
-			if (angular.element(gallery).hasClass('fadeOut')){
-				angular.element(gallery).removeClass('fadeOut').addClass('fadeIn');
-			}
-			func();
-			angular.element(preloader).attr('class', 'preloader fadeOut');
-		}, 1500);
+		if (artist) {
+
+			ajax(null, null, artists[artist]);
+			$scope.user = artist;
+
+		} else {
+
+			ajax();
+
+		}
 
 	};
 
@@ -164,17 +197,33 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 		}
 	};
 
-	var hashBang = function(){
-		var artist = window.location.hash.substr(1);
+	$scope.galleryHeight = function(raw){
 
-		if (artist) {
+		var	w         = window,
+			d         = document,
+			e         = d.documentElement,
+			g         = d.getElementsByTagName('body')[0],
+			y         = w.innerHeight || e.clientHeight || g.clientHeight,
+			small     = window.matchMedia('only screen and (min-width: 768px)'),
+			marginTop = document.querySelector('.main').offsetTop,
+			header    = document.querySelector('.container .large-3').clientHeight,
+			height    = (y - marginTop) - ( small.matches ? 0 : header) + 'px';
 
-			ajax(null, null, artists[artist]);
-			$scope.user = artist;
+		raw.style.height = height;
 
-		} else {
+		window.onresize = function(){
+			$scope.galleryHeight(raw);
+		};
+	};
 
-			ajax();
+	$scope.openInstagram = function(e){
+		console.log('Yo!');
+
+		var elem = angular.element(e.srcElement);
+
+		if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))){
+
+			window.location.href = 'instagram://media?id=' + elem.attr('data-src-id');
 
 		}
 
@@ -188,18 +237,9 @@ angular.module('txnsDirectives', [])
 .directive('whenScrolled', function() {
 	return function(scope, elm, attr) {
 
-		var	raw       = elm[0],
-			w         = window,
-			d         = document,
-			e         = d.documentElement,
-			g         = d.getElementsByTagName('body')[0],
-			y         = w.innerHeight || e.clientHeight || g.clientHeight,
-			small     = window.matchMedia('only screen and (min-width: 768px)'),
-			marginTop = document.querySelector('.main').offsetTop,
-			header    = document.querySelector('.container .large-3').clientHeight,
-			height    = (y - marginTop) - ( small.matches ? 0 : header) + 'px';
+		var raw = elm[0];
 
-		raw.style.height = height;
+		scope.galleryHeight(raw);
 
 		elm.bind('scroll', function() {
 			if (raw.scrollTop + raw.offsetHeight >= (raw.scrollHeight * 0.9)) {

@@ -13,7 +13,7 @@ header {
 		max-width: emCalc(90px);
 		opacity: 0.75;
 		@include transition(all 0.25s ease);
-		margin-top: 2em;
+		margin-top: 1em;
 		text-align: left;
 
 		&:hover {
@@ -114,9 +114,9 @@ header {
 		.toggle:after {
 			content: attr(data-open);
 			display: block;
-			width: 200px;
-			margin: 33px 0;
-			padding: 10px 50px;
+			width: 100%;
+			margin: 1.25em 0;
+			padding: emCalc(10px) emCalc(50px);
 			background: #00a99d;
 			@include border-radius(2px);
 			text-align: center;

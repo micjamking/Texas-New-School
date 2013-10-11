@@ -61,16 +61,20 @@
 			@include transition(all 0.4s ease);
 		}
 
-		&:hover img{
-			@include transform(translateY(-50px) scale(1.1));
-		}
+		@media #{$small}{
 
-		&:hover figcaption{
-			opacity: 1;
-			@include transform(translateY(0px));
-			-webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
-			-moz-transition: -moz-transform 0.4s, opacity 0.1s;
-			transition: transform 0.4s, opacity 0.1s;
+			&:hover img{
+				@include transform(translateY(-50px) scale(1.1));
+			}
+
+			&:hover figcaption{
+				opacity: 1;
+				@include transform(translateY(0px));
+				-webkit-transition: -webkit-transform 0.4s, opacity 0.1s;
+				-moz-transition: -moz-transform 0.4s, opacity 0.1s;
+				transition: transform 0.4s, opacity 0.1s;
+			}
+
 		}
 
     	figcaption {
