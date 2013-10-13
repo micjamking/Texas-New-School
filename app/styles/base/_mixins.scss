@@ -1,0 +1,85 @@
+/* ==========================================================================
+	Mixins - Animations
+   ========================================================================== */
+
+@mixin animation($params) {
+	-webkit-animation: $params;
+	-moz-animation: $params;
+	-o-animation: $params;
+	animation: $params;
+}
+
+@mixin animation-name($name) {
+	-webkit-animation-name: $name;
+	-moz-animation-name: $name;
+	-o-animation-name: $name;
+	animation-name: $name;
+}
+
+@mixin animation-timing-function($ease) {
+	-webkit-animation-timing-function: $ease;
+	-moz-animation-timing-function: $ease;
+	-ms-animation-timing-function: $ease;
+	-o-animation-timing-function: $ease;
+	animation-timing-function: $ease;
+}
+
+@mixin animation-fill-mode($mode) {
+	-webkit-animation-fill-mode: $mode;
+	-moz-animation-fill-mode: $mode;
+	-ms-animation-fill-mode: $mode;
+	-o-animation-fill-mode: $mode;
+	animation-fill-mode: $mode;
+}
+
+@mixin animation-duration($sec){
+	-webkit-animation-duration: $sec;
+	-moz-animation-duration: $sec;
+	-ms-animation-duration: $sec;
+	-o-animation-duration: $sec;
+	animation-duration: $sec;
+}
+
+@mixin animation-delay($sec){
+	-webkit-animation-delay: $sec;
+	-moz-animation-delay: $sec;
+	-ms-animation-delay: $sec;
+	-o-animation-delay: $sec;
+	animation-delay: $sec;
+}
+
+@mixin keyframes($name) {
+	@-webkit-keyframes $name {
+		@content;
+	}
+
+	@-moz-keyframes $name {
+		@content;
+	}
+
+	@-ms-keyframes $name {
+		@content;
+	}
+
+	@-o-keyframes $name {
+		@content;
+	}
+
+	@keyframes $name {
+		@content;
+	}
+}
+
+
+/* ==========================================================================
+	Mixins - Transforms
+   ========================================================================== */
+
+
+@mixin transform-origin($param) {
+	-webkit-transform-origin: $param;
+	-moz-transform-origin: $param;
+	-ms-transform-origin: $param;
+	-o-transform-origin: $param;
+	transform-origin: $param;
+}
