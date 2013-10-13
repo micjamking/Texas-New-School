@@ -111,7 +111,8 @@
 			a {
 				color: lighten(#00a99d, 5%);
 
-				&:hover {
+				&:hover,
+				&:focus {
 					text-decoration: underline;
 				}
 			}
@@ -129,7 +130,9 @@
 				@include box-shadow(none);
 				@include transition(all 0.25s ease);
 
-				&:hover {
+				&:hover,
+				&:active,
+				&:focus {
 					background: darken(#00a99d, 5%);
 					text-decoration: none;
 				}
