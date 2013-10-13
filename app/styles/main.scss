@@ -11,10 +11,10 @@
 		"foundation/scss/foundation/components/type",
 		"foundation/scss/foundation/components/visibility",
 		"foundation/scss/foundation/components/side-nav";
-
 @import "compass/css3";
 
 /* Base */
+@import "base/mixins";
 @import "base/animations";
 @import "base/color";
 
@@ -23,4 +23,3 @@
 @import "modules/gallery";
 @import "modules/header";
 @import "modules/layout";
-@import "modules/search";
