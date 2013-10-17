@@ -10,6 +10,7 @@ header {
 	}
 
 	.logo {
+		width: 100%;
 		max-width: emCalc(90px);
 		opacity: 0.75;
 		@include transition(all 0.25s ease);

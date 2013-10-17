@@ -27,6 +27,7 @@
 }
 
 .main {
+	-webkit-overflow-scrolling: touch;
     overflow: auto;
 
     article.row {
