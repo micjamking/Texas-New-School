@@ -108,7 +108,6 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 			}
 		}
 
-		$scope.photoRemainder = [];
 		evenRows(pigment);
 
 		return pigment;
@@ -119,6 +118,8 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 
 		var remainder = object.data.length % 3,
 			index     = object.data.length - remainder;
+
+		$scope.photoRemainder = [];
 
 		if (remainder === 0) {
 
