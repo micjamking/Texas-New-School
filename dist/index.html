@@ -14,7 +14,7 @@
 	<link rel="author" href="https://plus.google.com/u/0/112398162809101288990/">
 	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Titillium+Web">
 
-	<link rel="stylesheet" href="styles/6ad11965.main.css">
+	<link rel="stylesheet" href="styles/7b9f1a89.main.css">
 
 	<!-- Disable print & right-click behavior -->
 	<style type="text/css" media="print"> body { display: none; } </style>
@@ -27,7 +27,7 @@
 
 	<title>#texasnewschool | Pigment Dermagraphics on Instagram</title>
 </head>
-<body ng-controller="txnsCtrl">
+<body ng-controller="txnsCtrl" itemscope="" itemtype="http://schema.org/ImageGallery">
 	<!--[if lt IE 9]>
 	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -35,40 +35,43 @@
 	<div class="row container">
 
 		<section class="large-3 columns">
-			<header>
-				<a href="/" ng-click="newSearch()">
+			<header role="banner">
+				<h1 itemprop="name">Pigment Dermagraphics on Instagram</h1>
+				<a href="" title="Return to the homepage" ng-click="newSearch(); user = ''" rel="home">
 					<img class="logo fadeInDown" src="images/26c0ba87.logo_pigment.white.png" alt="Pigment Dermagraphics Logo" width="180" height="100">
 				</a>
 				<input type="checkbox" id="toggle" ng-model="toggleDisplay">
-				<label ng-click="newHeight()" for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick=""></label>
-				<ul class="side-nav">
-					<li ng-class="{ 'active': user == 'jeremymiller' }">
-						<a href="#jeremymiller" ng-click="newSearch('jeremymiller'); user = 'jeremymiller'">Jeremy Miller</a>
-					</li>
-					<li ng-class="{ 'active': user == 'thomaspage' }">
-						<a href="#thomaspage" ng-click="newSearch('thomaspage'); user = 'thomaspage'">Thomas Page</a>
-					</li>
-					<li ng-class="{ 'active': user == 'timsinknart' }">
-						<a href="#timsinknart" ng-click="newSearch('timsinknart'); user = 'timsinknart'">Tim Stafford</a>
-					</li>
-				</ul>
+				<nav role="navigation">
+					<label ng-click="newHeight()" for="toggle" class="toggle" data-open="Artist Menu" data-close="Close Menu" onclick=""></label>
+					<ul class="side-nav">
+						<li ng-class="{ 'active': user == 'jeremymiller' }">
+							<a href="#jeremymiller" ng-click="newSearch('jeremymiller'); user = 'jeremymiller'" title="Jeremy Miller on Instagram">Jeremy Miller</a>
+						</li>
+						<li ng-class="{ 'active': user == 'thomaspage' }">
+							<a href="#thomaspage" ng-click="newSearch('thomaspage'); user = 'thomaspage'" title="Thomas Page on Instagram">Thomas Page</a>
+						</li>
+						<li ng-class="{ 'active': user == 'timsinknart' }">
+							<a href="#timsinknart" ng-click="newSearch('timsinknart'); user = 'timsinknart'" title="Timothy Stafford on Instagram">Tim Stafford</a>
+						</li>
+					</ul>
+				</nav>
 			</header>
-			<footer>
+			<footer role="contentinfo">
 				<ul class="contact-info">
-					<li><a href="http://goo.gl/maps/vhK4a">12233 N. RR 620 #111, Austin, TX, 78750</a></li>
-					<li>e: <a href="mailto:info@texasnewschool.com">info@texasnewschool.com</a></li>
-					<li>p: <a href="tel:1-512-331-5476">512-331-5476</a></li>
+					<li><a href="http://goo.gl/maps/vhK4a" title="Pigment Dermagraphics Address on Google Maps">12233 N. RR 620 #111, Austin, TX, 78750</a></li>
+					<li>e: <a href="mailto:info@texasnewschool.com" title="Email Pigment Dermagraphics">info@texasnewschool.com</a></li>
+					<li>p: <a href="tel:1-512-331-5476" title="Call Pigment Dermagraphics">512-331-5476</a></li>
 				</ul>
 			</footer>
 		</section>
 
 		<!-- Gallery -->
-		<section class="photo-container large-9 columns">
+		<section class="photo-container large-9 columns" role="main">
 			<div class="main" when-scrolled="loadMore()">
 				<article class="row" ng-repeat="object in data">
 					<div class="large-4 columns fadeIn image-{{ $index + 1 }}" ng-repeat="photo in object.data">
 						<figure>
-							<img class="artwork" ng-src="{{ photo.images.standard_resolution.url }}" alt="{{ photo.user.full_name }} on Instagram" data-src-id="{{ photo.id }}" lazy-load="" ng-click="openInstagram($event)">
+							<img class="artwork" ng-src="{{ photo.images.standard_resolution.url }}" alt="{{ photo.user.full_name }} on Instagram" data-src-id="{{ photo.id }}" data-src-link="{{ photo.link }}" lazy-load="" ng-click="openInstagram($event)">
 							<figcaption>
 								<div class="row">
 									<span class="left small-8 columns">by <a href="http://instagram.com/{{ photo.user.username }}" alt="{{ photo.user.full_name }} on Instagram" target="_blank">{{ photo.user.full_name }}</a></span>
@@ -101,6 +104,6 @@
 	   ga('send', 'pageview');
 	</script>
 
-	<script src="scripts/3f67a78a.scripts.js"></script>
+	<script src="scripts/cf337d5b.scripts.js"></script>
 </body>
 </html>
