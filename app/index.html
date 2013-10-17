@@ -30,7 +30,7 @@
 
 	<title>#texasnewschool | Pigment Dermagraphics on Instagram</title>
 </head>
-<body ng-controller="txnsCtrl">
+<body ng-controller="txnsCtrl" itemscope itemtype="http://schema.org/ImageGallery">
 	<!--[if lt IE 9]>
 	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -38,26 +38,28 @@
 	<div class="row container">
 
 		<section class="large-3 columns">
-			<header>
-				<h1>Pigment Dermagraphics on Instagram</h1>
-				<a href="" title="Return to the homepage" ng-click="newSearch(); user = ''">
+			<header role="banner">
+				<h1 itemprop="name">Pigment Dermagraphics on Instagram</h1>
+				<a href="" title="Return to the homepage" ng-click="newSearch(); user = ''" rel="home">
 					<img class="logo fadeInDown" src="images/logo_pigment.white.png" alt="Pigment Dermagraphics Logo" width="180" height="100" />
 				</a>
 				<input type="checkbox" id="toggle" ng-model="toggleDisplay" />
-				<label ng-click="newHeight()" for="toggle" class="toggle" data-open="Artist Menu" data-close="Close Menu" onclick></label>
-				<ul class="side-nav">
-					<li ng-class="{ 'active': user == 'jeremymiller' }">
-						<a href="#jeremymiller" ng-click="newSearch('jeremymiller'); user = 'jeremymiller'" title="Jeremy Miller on Instagram">Jeremy Miller</a>
-					</li>
-					<li ng-class="{ 'active': user == 'thomaspage' }">
-						<a href="#thomaspage" ng-click="newSearch('thomaspage'); user = 'thomaspage'"  title="Thomas Page on Instagram">Thomas Page</a>
-					</li>
-					<li ng-class="{ 'active': user == 'timsinknart' }">
-						<a href="#timsinknart" ng-click="newSearch('timsinknart'); user = 'timsinknart'"  title="Timothy Stafford on Instagram">Tim Stafford</a>
-					</li>
-				</ul>
+				<nav role="navigation">
+					<label ng-click="newHeight()" for="toggle" class="toggle" data-open="Artist Menu" data-close="Close Menu" onclick></label>
+					<ul class="side-nav">
+						<li ng-class="{ 'active': user == 'jeremymiller' }">
+							<a href="#jeremymiller" ng-click="newSearch('jeremymiller'); user = 'jeremymiller'" title="Jeremy Miller on Instagram">Jeremy Miller</a>
+						</li>
+						<li ng-class="{ 'active': user == 'thomaspage' }">
+							<a href="#thomaspage" ng-click="newSearch('thomaspage'); user = 'thomaspage'"  title="Thomas Page on Instagram">Thomas Page</a>
+						</li>
+						<li ng-class="{ 'active': user == 'timsinknart' }">
+							<a href="#timsinknart" ng-click="newSearch('timsinknart'); user = 'timsinknart'"  title="Timothy Stafford on Instagram">Tim Stafford</a>
+						</li>
+					</ul>
+				</nav>
 			</header>
-			<footer>
+			<footer role="contentinfo">
 				<ul class="contact-info">
 					<li><a href="http://goo.gl/maps/vhK4a" title="Pigment Dermagraphics Address on Google Maps">12233 N. RR 620 #111, Austin, TX, 78750</a></li>
 					<li>e: <a href="mailto:info@texasnewschool.com" title="Email Pigment Dermagraphics">info@texasnewschool.com</a></li>
@@ -67,7 +69,7 @@
 		</section>
 
 		<!-- Gallery -->
-		<section class="photo-container large-9 columns">
+		<section class="photo-container large-9 columns" role="main">
 			<div class="main" when-scrolled="loadMore()">
 				<article class="row" ng-repeat="object in data">
 					<div class="large-4 columns fadeIn image-{{ $index + 1 }}" ng-repeat="photo in object.data">
