@@ -219,11 +219,16 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 
 	$scope.openInstagram = function(e){
 
-		var elem = angular.element(e.srcElement);
+		var elem  = angular.element(e.srcElement),
+			small = window.matchMedia('only screen and (min-width: 768px)');
 
 		if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))){
 
 			window.location.href = 'instagram://media?id=' + elem.attr('data-src-id');
+
+		} else if (!small.matches) {
+
+			window.location.href = elem.attr('data-src-link');
 
 		}
 
