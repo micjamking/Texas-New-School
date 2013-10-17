@@ -28,10 +28,11 @@ header {
 	}
 
 	.side-nav {
+		display: none;
 		margin-top: 1em;
 		margin-left: -0.9375em;
 		margin-right: -0.9375em;
-		padding: 1.5em 0 2em;
+		padding: 1.5em 0 0;
 		opacity: 0;
 		@include animation-name(fadeIn);
 		@include animation-duration(0.75s);
@@ -79,36 +80,37 @@ header {
 				background-color: hsl(217, 40%, 96%);
 			}
 		}
+
+		@media #{$small}{
+			padding: 1.5em 0 2em;
+			display: block;
+		}
 	}
 
-	#toggle, .toggle {
+	#toggle{
 		display: none;
+
+		&:checked {
+
+			~ .side-nav {
+				display: block;
+				opacity: 1;
+			}
+
+			+ .toggle:after{
+				content: attr(data-close);
+			}
+		}
 	}
 
 	.toggle{
+		display: block;
+		position: relative;
 		z-index: 2;
-	}
+		cursor: pointer;
+		@include select(none);
 
-	@media only screen and (max-width: 768px){
-		.side-nav {
-			display: none;
-		}
-
-		.toggle {
-			display: block;
-			position: relative;
-			cursor: pointer;
-			-webkit-touch-callout: none;
-			-webkit-user-select: none;
-			user-select: none;
-		}
-
-		#toggle:checked ~ .side-nav {
-			display: block;
-			opacity: 1;
-		}
-
-		.toggle:after {
+		&:after {
 			content: attr(data-open);
 			display: block;
 			width: 100%;
@@ -122,16 +124,12 @@ header {
 			@include transition(all 0.25s ease);
 		}
 
-		.toggle:hover:after{
+		&:hover:after{
 			background: darken(#00a99d, 5%);
 		}
 
-		#toggle:checked + .toggle:after{
-			content: attr(data-close);
-		}
-		.toggle:after {
-			text-align: center;
-			width: 100%;
+		@media #{$small}{
+			display: none;
 		}
 	}
 }
