@@ -9,6 +9,10 @@ header {
 		margin-top: 50%;
 	}
 
+	h1 {
+		display: none;
+	}
+
 	.logo {
 		width: 100%;
 		max-width: emCalc(90px);
@@ -44,12 +48,13 @@ header {
 		li {
 			margin: 0;
 			font-size: 0.875em;
-			padding: 0.75em 0;
+			padding: 0;
 			border-top: 1px solid darken(#2C3F52, 3.5%);
 			@include transition(all 0.25s ease);
 
 			a {
 				color: #FFF;
+				padding: 0.75em 0;
 				font-weight: normal;
 				font-size: 1.14285714285714em;
 				@include transition(all 0.25s ease);
@@ -93,12 +98,12 @@ header {
 
 		&:checked {
 
-			~ .side-nav {
+			~ nav[role="navigation"] .side-nav {
 				display: block;
 				opacity: 1;
 			}
 
-			+ .toggle:after{
+			~ nav[role="navigation"] .toggle:after{
 				content: attr(data-close);
 			}
 		}
