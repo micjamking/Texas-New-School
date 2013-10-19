@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="description" content="Texas New School tattoo artists from Pigment Dermagraphics and Fine Art in Austin, Texas." />
 	<meta name="keywords" content="texas new school, texasnewschool, new school, tattoo, tattoos, instagram, instagram tattoo artists, tattoo design, tattoo designs, tattoo picture, tattoo art, graffiti tattoo, tattoo shop, fine arts, illustration, drawings, cartoon characters, character design, austin, texas, jeremy miller, jeremy miller tattoos, thomas page, tim stafford, pigment dermagraphics" />
-	<meta name="google-site-verification" content="kUtUayaETOm5W-3PY--N3wwdRcs5fZjjukABHW-naLc" />
+	<meta name="google-site-verification" content="jvitIPkpPrDs33L8S0_aIM-hGpGHLezDlhskVYw9Fu8" />
 	<meta name="author" content="Mike King" />
 	<link rel="author" href="https://plus.google.com/u/0/112398162809101288990/" />
 	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Titillium+Web'>
@@ -30,7 +30,7 @@
 
 	<title>#texasnewschool | Pigment Dermagraphics on Instagram</title>
 </head>
-<body ng-controller="txnsCtrl" itemscope itemtype="http://schema.org/ImageGallery">
+<body itemscope itemtype="http://schema.org/ImageGallery" ng-controller="txnsCtrl">
 	<!--[if lt IE 9]>
 	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
@@ -40,7 +40,7 @@
 		<section class="large-3 columns">
 			<header role="banner">
 				<h1 itemprop="name">Pigment Dermagraphics on Instagram</h1>
-				<a href="" title="Return to the homepage" ng-click="newSearch(); user = ''" rel="home">
+				<a href="" title="Return to the homepage" rel="home" ng-click="newSearch(); user = ''">
 					<img class="logo fadeInDown" src="images/logo_pigment.white.png" alt="Pigment Dermagraphics Logo" width="180" height="100" />
 				</a>
 				<input type="checkbox" id="toggle" ng-model="toggleDisplay" />
@@ -78,7 +78,7 @@
 							<figcaption>
 								<div class="row">
 									<span class="left small-8 columns">by <a href="http://instagram.com/{{ photo.user.username }}" alt="{{ photo.user.full_name }} on Instagram" target="_blank">{{ photo.user.full_name }}</a></span>
-									<span class="right small-4 columns">&#10084; {{photo.likes.count}}</span>
+									<span class="right small-4 columns">&#10084; {{ photo.likes.count }}</span>
 								</div>
 								<a class="button" href="{{ photo.link }}" alt="{{ photo.user.full_name }} on Instagram" target="_blank">View on Instagram</a>
 							</figcaption>

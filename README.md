@@ -1,5 +1,5 @@
 # #texasnewschool
-*HTML5 Web app using Angular.js & Instagram API to showcase Texas "New School" Tattoo Artists*
+*HTML5 Web app using AngularJS & Instagram API to showcase Texas "New School" Tattoo Artists*
 
 ##Live Site
 
