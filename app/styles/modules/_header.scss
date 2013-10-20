@@ -9,8 +9,15 @@ header {
 		margin-top: 50%;
 	}
 
-	h1 {
-		display: none;
+	> a {
+		display: block;
+		width: 25%;
+		float: left;
+
+		@media #{$small}{
+			width: inherit;
+			float: none;
+		}
 	}
 
 	.logo {
@@ -18,7 +25,7 @@ header {
 		max-width: emCalc(90px);
 		opacity: 0.75;
 		@include transition(all 0.25s ease);
-		margin-top: 1em;
+		margin: 1em auto 0;
 		text-align: left;
 
 		&:hover {
@@ -32,12 +39,16 @@ header {
 		}
 	}
 
+	nav[role="navigation"] {
+		@include clearfix;
+	}
+
 	.side-nav {
 		display: none;
-		margin-top: 1em;
+		margin-top: 3em;
 		margin-left: -0.9375em;
 		margin-right: -0.9375em;
-		padding: 1.5em 0 0;
+		padding: 1.375em 0 0;
 		opacity: 0;
 		@include animation-name(fadeIn);
 		@include animation-duration(0.75s);
@@ -88,6 +99,7 @@ header {
 		}
 
 		@media #{$small}{
+			margin-top: 1em;
 			padding: 1.5em 0 2em;
 			display: block;
 		}
@@ -111,6 +123,8 @@ header {
 
 	.toggle{
 		display: block;
+		width: 20%;
+		float: right;
 		position: relative;
 		z-index: 2;
 		cursor: pointer;
@@ -120,14 +134,15 @@ header {
 			content: attr(data-open);
 			display: block;
 			width: 100%;
-			margin: 1.25em 0;
-			padding: emCalc(10px) emCalc(50px);
+			margin: 0.7em 0;
+			padding: emCalc(3px) emCalc(12px) emCalc(5px);
 			background: #00a99d;
 			@include border-radius(2px);
 			text-align: center;
-			font-size: emCalc(14px);
+			font-size: emCalc(24px);
 			color: #FFFFFF;
 			@include transition(all 0.25s ease);
+			@include box-shadow(0px 3px rgb(0, 117, 109));
 		}
 
 		&:hover:after{
