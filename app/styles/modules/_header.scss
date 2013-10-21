@@ -2,6 +2,7 @@
 	Header
    ========================================================================== */
 
+
 header {
 	position: relative;
 
@@ -23,18 +24,18 @@ header {
 	.logo {
 		width: 100%;
 		max-width: emCalc(90px);
-		opacity: 0.75;
-		@include transition(all 0.25s ease);
 		margin: 1em auto 0;
 		text-align: left;
-
-		&:hover {
-			opacity: 1;
-		}
+		@include transition(all 0.25s ease);
 
 		@media #{$small} {
+			&:hover {
+				opacity: 1;
+			}
+
 			max-width: emCalc(180px);
 			margin-top: 0;
+			opacity: 0.75;
 			text-align: center;
 		}
 	}

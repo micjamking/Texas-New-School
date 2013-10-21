@@ -5,9 +5,10 @@
 .photo-container {
 	position: relative;
 	background: #F1F4F9;
-    padding: 1.875em 0 0;
+    padding: 0.875em 0 0;
 
     @media #{$small}{
+    	margin: 0;
     	padding: 1.875em 0.9375em 0;
     	height: 100%;
 
@@ -55,16 +56,20 @@
     figure{
 		display: none;
     	position: relative;
-    	margin-bottom: 1.875em;
+    	margin-bottom: 0.875em;
 		overflow: hidden;
 
 		.show-for-small {
 			width: 100%;
 			padding: 0.5em 0.46875em;
-			//position: absolute;
-			//bottom: 0;
-			//z-index: 1;
-			background: rgb(44, 63, 82);
+			background-color: white;
+			position: -webkit-sticky !important;
+			position: -moz-sticky;
+			position: -ms-sticky;
+			position: -o-sticky;
+			position: sticky;
+			top: 84px;
+			z-index: 1;
 			@include clearfix;
 
 			.avatar {
@@ -89,7 +94,7 @@
 			h4,
 			span {
 				font-family: "Titillium Web", sans-serif;
-				color: rgb(255, 255, 255);
+				color: rgb(44, 63, 82);
 			}
 
 			span {
@@ -105,6 +110,7 @@
 		}
 
 		@media #{$small}{
+    		margin-bottom: 1.875em;
 
 			&:hover img{
 				@include transform(translateY(-50px) scale(1.1));

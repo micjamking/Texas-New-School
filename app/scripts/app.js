@@ -156,7 +156,9 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 
 		if (artist) {
 
-			$scope.artist = artists[artist];
+			$scope.photoRemainder = [];
+			$scope.artist         = artists[artist];
+
 			ajax(null, true, artists[artist]);
 
 
