@@ -16,7 +16,7 @@ describe('Controller: txnsCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+  it('should attach an array named data to the scope', function () {
+    expect(scope.data).toBeDefined();
   });
 });

@@ -109,7 +109,8 @@ module.exports = function (grunt) {
 					src: [
 						'.tmp',
 						'<%= yeoman.dist %>/*',
-						'!<%= yeoman.dist %>/.git*'
+						'!<%= yeoman.dist %>/.git*',
+						'!<%= yeoman.dist %>/CNAME'
 					]
 				}]
 			},
@@ -241,8 +242,7 @@ module.exports = function (grunt) {
 						'*.{ico,png,txt}',
 						'.htaccess',
 						'images/{,*/}*.{gif,webp}',
-						'fonts/**/*',
-						'CNAME'
+						'fonts/**/*'
 					]
 				}, {
 					expand: true,
@@ -328,8 +328,8 @@ module.exports = function (grunt) {
 		'clean:server',
 		'concurrent:test',
 		'autoprefixer',
-		//'connect:test',
-		//'karma'
+		'connect:test',
+		'karma'
 	]);
 
 	grunt.registerTask('build', [

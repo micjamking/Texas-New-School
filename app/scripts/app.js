@@ -17,7 +17,7 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 		baseURL     = 'https://api.instagram.com/v1/',
 		paramURL    = '/media/recent?access_token=' + accessToken + count + '&callback=JSON_CALLBACK',
 		artists     = {
-			timsinknart: 52638890,
+			timstaffordtattoos: 52638890,
 			thomaspage: 21818000,
 			jeremymiller: 15994110
 		};
@@ -80,7 +80,7 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 			artists = {
 				'jeremymiller': true,
 				'thomaspage': true,
-				'timsinknart': true
+				'timstaffordtattoos': true
 			};
 
 		pigment.data       = [];
