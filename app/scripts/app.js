@@ -20,7 +20,7 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 			timstaffordtattoos: 52638890,
 			thomaspage: 21818000,
 			jeremymiller: 15994110,
-			davidflores_316: 22917518 
+			davidflores_316: 22917518
 		};
 
 	var ajax = function(params, bool, artist){
