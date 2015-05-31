@@ -19,7 +19,8 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 		artists     = {
 			timstaffordtattoos: 52638890,
 			thomaspage: 21818000,
-			jeremymiller: 15994110
+			jeremymiller: 15994110,
+			davidflores_316: 22917518 
 		};
 
 	var ajax = function(params, bool, artist){
@@ -80,7 +81,8 @@ angular.module('txnsApp').controller('txnsCtrl', function ($scope, $http, $timeo
 			artists = {
 				'jeremymiller': true,
 				'thomaspage': true,
-				'timstaffordtattoos': true
+				'timstaffordtattoos': true,
+				'davidflores_316': true
 			};
 
 		pigment.data       = [];
